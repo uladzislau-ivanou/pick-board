@@ -19,7 +19,7 @@ export const QuickStakes = ({
           aria-pressed={selected}
           onClick={() => onSelect(String(amount))}
           className={cn(
-            'min-h-10 flex-1 border px-3 text-left type-heading text-[13px] transition-colors',
+            'min-h-10 flex-1 rounded-md border px-2.5 text-left type-heading text-[13px] transition-colors',
             selected
               ? 'border-pb-brand bg-pb-brand-tint-2'
               : 'border-divider bg-neutral-100 hover:border-pb-brand hover:bg-pb-brand-tint',

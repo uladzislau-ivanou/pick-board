@@ -28,18 +28,32 @@
     letter-spacing: -0.015em;
   }
 
-  /* Do not restyle the focus ring per component. */
   :focus {
     outline: none;
   }
 
+  /* Brand, not the system accent: the accent is a red, and a red ring around a
+     focused input reads as a validation error before anything is wrong.
+     Do not restyle this per component. */
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-pb-brand);
     outline-offset: 2px;
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--color-accent) 30%, transparent);
+    background: color-mix(in srgb, var(--color-pb-brand) 26%, transparent);
+  }
+
+  /* The pattern card moves on its own, so honouring this is not optional. It
+     covers the modal, toast and row-detail fades in one place too. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
@@ -56,7 +70,29 @@
 @utility crest-field {
   background-image: linear-gradient(
     var(--crest-angle, 90deg),
-    color-mix(in srgb, var(--crest-color, var(--color-text)) 16%, var(--color-bg)) 0%,
-    var(--color-bg) 92%
+    color-mix(in srgb, var(--crest-color, var(--color-text)) var(--crest-tint), var(--color-bg)) 0%,
+    color-mix(
+        in srgb,
+        var(--crest-color-2, var(--crest-color, var(--color-text))) var(--crest-tint-far),
+        var(--color-bg)
+      )
+      58%,
+    var(--color-bg) 94%
+  );
+}
+
+/* Inset rather than a border, which would move the text. */
+@utility crest-flash {
+  box-shadow: inset var(--crest-flash-x, 3px) 0 0 0 var(--crest-color, var(--color-text));
+}
+
+/* The secondary half is mixed back toward the primary because a club's second
+   colour is often white or gold, and the monogram sits across both halves in
+   white. Every club primary is dark, so mixing toward it bounds the lightness. */
+@utility crest-split {
+  background-image: linear-gradient(
+    135deg,
+    var(--crest-color) 0 50%,
+    color-mix(in srgb, var(--crest-color-2, var(--crest-color)) 45%, var(--crest-color)) 50% 100%
   );
 }

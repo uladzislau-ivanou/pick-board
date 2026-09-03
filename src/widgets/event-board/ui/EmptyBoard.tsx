@@ -9,7 +9,7 @@ export const EmptyBoard = ({
   sport: SportFilterValue
   onClearFilter: () => void
 }) => (
-  <div className="border-t-2 border-divider px-5 pt-10 pb-11">
+  <div className="mt-6.5 border-t-2 border-divider pt-10 pb-11">
     <div className="max-w-[440px]">
       <h4 className="text-[20px]">
         {sport === 'all'

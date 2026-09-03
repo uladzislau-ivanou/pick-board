@@ -31,6 +31,47 @@ const SERIES = [
   { key: 'pendingStake', color: 'var(--color-pb-brand)' },
 ] as const
 
+const BAR_RADIUS = 3
+
+/** A rect with only its top corners rounded. */
+const cappedRect = (x: number, y: number, width: number, height: number, radius: number) => {
+  const r = Math.min(radius, width / 2, height)
+  return [
+    `M${x},${y + height}`,
+    `L${x},${y + r}`,
+    `Q${x},${y} ${x + r},${y}`,
+    `L${x + width - r},${y}`,
+    `Q${x + width},${y} ${x + width},${y + r}`,
+    `L${x + width},${y + height}`,
+    'Z',
+  ].join(' ')
+}
+
+type BarShapeProps = {
+  x?: number
+  y?: number
+  width?: number
+  height?: number
+  fill?: string
+  dataKey?: string
+  payload?: DayBucket
+}
+
+/**
+ * Rounds a segment only when nothing is stacked above it that day. Rounding
+ * every segment leaves a visible notch wherever a square-bottomed segment sits
+ * on a rounded one — and which series ends up on top varies by day, so it
+ * cannot be decided per series.
+ */
+const StackedBar = ({ x, y, width, height, fill, dataKey, payload }: BarShapeProps) => {
+  if (x === undefined || y === undefined || !width || !height) return null
+
+  const index = SERIES.findIndex((series) => series.key === dataKey)
+  const isTop = SERIES.slice(index + 1).every((series) => !payload?.[series.key])
+
+  return <path d={cappedRect(x, y, width, height, isTop ? BAR_RADIUS : 0)} fill={fill} />
+}
+
 /**
  * Recharts draws the bars; the click target, the accessible name and keyboard
  * access come from a transparent button per column laid over them. SVG rects
@@ -96,7 +137,10 @@ export const DailyPerformanceChart = ({
           {buckets.map((bucket) => (
             <span
               key={bucket.day}
-              className={cn('flex-1', bucket.day === selectedDay && 'bg-pb-brand-tint')}
+              className={cn(
+                'flex-1',
+                bucket.day === selectedDay && 'rounded-t-sm bg-pb-brand-tint',
+              )}
             />
           ))}
         </div>
@@ -115,6 +159,7 @@ export const DailyPerformanceChart = ({
                 dataKey={series.key}
                 stackId="stake"
                 fill={series.color}
+                shape={StackedBar}
                 isAnimationActive={false}
               />
             ))}
@@ -144,12 +189,12 @@ export const DailyPerformanceChart = ({
         </div>
       </div>
 
-      <div className="flex border-t-2 border-divider pt-1.5">
+      <div className="flex border-t-2 border-divider pt-1.75">
         {buckets.map((bucket, index) => (
           <span
             key={bucket.day}
             className={cn(
-              'flex-1 text-center',
+              'flex-1 rounded-b-sm px-1 py-1 text-center',
               bucket.day === selectedDay &&
                 'bg-pb-brand-tint shadow-[inset_0_-3px_0_0_var(--color-pb-brand)]',
             )}
@@ -159,7 +204,7 @@ export const DailyPerformanceChart = ({
             </span>
             {dense ? null : (
               <span className="block text-[10px] text-ink/45">
-                {bucket.staked > 0 ? `${formatMoney(bucket.staked)} in` : '—'}
+                {bucket.staked > 0 ? formatMoney(bucket.staked) : '—'}
               </span>
             )}
           </span>

@@ -32,8 +32,8 @@ export const EvidenceStrip = ({
             key={pick.id}
             className={
               pick.status === 'Won'
-                ? 'flex size-5.5 items-center justify-center border border-ground bg-ground type-heading text-[11px] text-ink'
-                : 'flex size-5.5 items-center justify-center border border-ground bg-ground/22 type-heading text-[11px]'
+                ? 'flex size-5.5 items-center justify-center rounded-sm border border-on-field bg-on-field type-heading text-[11px] text-pb-brand-deep'
+                : 'flex size-5.5 items-center justify-center rounded-sm border border-on-field bg-on-field/22 type-heading text-[11px]'
             }
           >
             <span className="sr-only">{pick.status}</span>

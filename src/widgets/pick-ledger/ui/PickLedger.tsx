@@ -38,7 +38,10 @@ export const PickLedger = ({
   const rows = useExpandedRows()
 
   return (
-    <section aria-label="Picks" className={cn('border border-divider bg-neutral-100', className)}>
+    <section
+      aria-label="Picks"
+      className={cn('overflow-hidden rounded-b-lg border border-divider bg-neutral-100', className)}
+    >
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-divider px-5 py-3.5">
         <h3 className="text-[20px]">Picks</h3>
         <PickTabs

@@ -102,10 +102,12 @@ describe('DailyPerformanceChart', () => {
     expect(selected?.getAttribute('aria-label')).toContain('filtering the list below')
   })
 
-  it('shows a net figure and the amount staked per day', () => {
+  it('shows the amount staked per day, and an em-dash where nothing was', () => {
     renderChart()
 
-    expect(screen.getAllByText(/ in$/).length).toBeGreaterThan(0)
+    // Two seeded picks landed yesterday: $30 and $25.
+    expect(screen.getByText('$55')).toBeInTheDocument()
+    // The seeded picks run 1-6 days back, so today staked nothing.
     expect(screen.getAllByText('—').length).toBeGreaterThan(0)
   })
 

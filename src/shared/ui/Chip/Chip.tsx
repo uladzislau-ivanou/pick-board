@@ -2,7 +2,7 @@ import type { ComponentPropsWithRef } from 'react'
 
 import { cn } from '@/shared/lib/cn'
 
-/** Sport filters and quick stakes. Callers set the height. */
+/** Callers set the height. */
 type ChipProps = ComponentPropsWithRef<'button'> & {
   selected?: boolean
 }
@@ -12,7 +12,7 @@ export const Chip = ({ selected = false, className, type = 'button', ...props }:
     type={type}
     aria-pressed={selected}
     className={cn(
-      'inline-flex items-center gap-1.5 border px-3 type-heading text-[12px] tracking-[.04em] uppercase transition-colors',
+      'inline-flex items-center gap-1.5 rounded-md border px-3 type-heading text-[12px] tracking-[.04em] uppercase transition-colors',
       selected
         ? 'border-pb-brand-ink bg-pb-brand-ink text-ground'
         : 'border-divider bg-ground text-ink hover:border-pb-brand hover:bg-pb-brand-tint',

@@ -50,7 +50,7 @@ export const PickRow = ({
   const returned = returnValue(pick)
 
   return (
-    <div className={cn('border-b border-divider', pending && 'bg-ground')}>
+    <div className={cn('@container border-b border-divider', pending && 'bg-ground')}>
       <button
         type="button"
         onClick={onToggle}
@@ -63,9 +63,9 @@ export const PickRow = ({
           `${RETURN_LABELS[pick.status].toLowerCase()} ${returned}`,
           pick.status,
         ].join('. ')}
-        className="flex w-full flex-wrap items-center gap-5 px-5 py-3.5 text-left hover:bg-neutral-200"
+        className="grid w-full grid-cols-[1fr_auto] items-center gap-x-5 gap-y-3 px-5 py-3.5 text-left hover:bg-neutral-200 @2xl:grid-cols-[1fr_auto_auto]"
       >
-        <span className="flex-1 basis-60">
+        <span className="col-start-1 row-start-1 min-w-0">
           <span className="block text-[10px] font-semibold tracking-[.12em] text-ink/50 uppercase">
             {pick.market} · {formatShortDate(pick.placedAt)}
           </span>
@@ -76,17 +76,28 @@ export const PickRow = ({
           </span>
         </span>
 
-        <LabeledValue label="Odds" value={formatOdds(pick.odds)} className="w-18.5" />
-        <LabeledValue label="Stake" value={formatMoney(pick.stake)} className="w-18.5" />
-        <LabeledValue
-          label={RETURN_LABELS[pick.status]}
-          value={returned}
-          className="w-24"
-          valueClassName={RETURN_COLORS[pick.status]}
-        />
+        {/* Narrow: the figures take a second grid row and status sits beside
+            the selection, so the row is two lines rather than three. Wide:
+            everything is one line and status returns past the figures, where a
+            disclosure affordance belongs. Explicit placement rather than flex
+            `order`, which cannot express "same line here, next line there" —
+            and keyed off the container, since what matters is the room the
+            ledger has, not the viewport. */}
+        <span className="col-span-2 col-start-1 row-start-2 flex flex-wrap gap-x-5 gap-y-2 @2xl:col-span-1 @2xl:col-start-2 @2xl:row-start-1">
+          <LabeledValue label="Odds" value={formatOdds(pick.odds)} className="w-18.5" />
+          <LabeledValue label="Stake" value={formatMoney(pick.stake)} className="w-18.5" />
+          <LabeledValue
+            label={RETURN_LABELS[pick.status]}
+            value={returned}
+            className="w-24"
+            valueClassName={RETURN_COLORS[pick.status]}
+          />
+        </span>
 
-        <PickStatusChip status={pick.status} className="w-23 justify-center" />
-        <DisclosureSquare open={expanded} />
+        <span className="col-start-2 row-start-1 flex shrink-0 items-center gap-2 @2xl:col-start-3">
+          <PickStatusChip status={pick.status} className="w-23 justify-center" />
+          <DisclosureSquare open={expanded} />
+        </span>
       </button>
 
       {expanded ? <PickDetails id={detailId} pick={pick} /> : null}

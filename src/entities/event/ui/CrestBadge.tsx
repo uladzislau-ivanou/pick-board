@@ -1,7 +1,7 @@
-export const CrestBadge = ({ abbr, color }: { abbr: string; color: string }) => (
+export const CrestBadge = ({ abbr }: { abbr: string }) => (
   <span
-    style={{ backgroundColor: color }}
-    className="flex size-crest shrink-0 items-center justify-center type-heading text-crest text-white"
+    aria-hidden
+    className="flex size-crest shrink-0 items-center justify-center rounded-full crest-split type-heading text-crest tracking-[-0.01em] text-white"
   >
     {abbr}
   </span>

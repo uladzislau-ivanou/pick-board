@@ -35,8 +35,8 @@ export const PlacePickModal = ({
 
   return (
     <Modal open onClose={onClose} labelledBy={TITLE_ID} initialFocusRef={stakeInputRef}>
-      <div className="flex items-start gap-3.5 border-b-2 border-divider p-5">
-        <span className="flex size-9.5 shrink-0 items-center justify-center bg-neutral-900 text-ground">
+      <div className="flex items-start gap-3.5 border-b-2 border-divider px-5 py-4">
+        <span className="flex size-9.5 shrink-0 items-center justify-center rounded-md bg-inverse text-inverse-ink">
           <SportIcon sport={draft.sport} size={20} />
         </span>
         <div className="min-w-0 flex-1">

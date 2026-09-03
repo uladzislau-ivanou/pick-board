@@ -22,7 +22,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
       {children}
       {toast ? (
         // <output> carries an implicit status role.
-        <output className="fixed bottom-5 left-5 z-[70] flex max-w-[calc(100vw-40px)] animate-pb-in items-center gap-3 bg-neutral-900 px-4.5 py-3.5 text-[13px] text-ground">
+        <output className="fixed bottom-5 left-5 z-[70] flex max-w-[calc(100vw-40px)] animate-pb-in items-center gap-3 rounded-md bg-inverse px-4.5 py-3.5 text-[13px] text-inverse-ink">
           <span>{toast.message}</span>
           {toast.actionLabel ? (
             <button
@@ -31,7 +31,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
                 toast.onAction?.()
                 setToast(null)
               }}
-              className="border border-ground/40 px-2 py-1 type-heading text-[11px] tracking-[.06em] uppercase hover:bg-ground/15"
+              className="rounded-sm border border-inverse-ink/40 px-2.5 py-1.5 type-heading text-[11px] tracking-[.06em] uppercase hover:bg-inverse-ink/15"
             >
               {toast.actionLabel}
             </button>

@@ -10,7 +10,7 @@ export const EventCard = ({
   event: SportEvent
   onSelectOutcome: (event: SportEvent, market: Market, outcome: Outcome) => void
 }) => (
-  <article className="border border-divider bg-neutral-100">
+  <article className="overflow-hidden rounded-lg border border-divider bg-neutral-100">
     <header>
       <LeagueStrip event={event} />
       <MatchupRow away={event.away} home={event.home} />

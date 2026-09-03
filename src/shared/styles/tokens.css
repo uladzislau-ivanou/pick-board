@@ -52,9 +52,29 @@
   --color-pb-brand-deep: #1b0b45; /* reserved — deepest step */
   --color-pb-brand-tint: #f1eaff; /* price hover, pending chip fill, selected chart day */
   --color-pb-brand-tint-2: #e2d5ff; /* price active, selected quick-stake */
-  --color-pb-win: #127a55; /* won bars/chips/values, good pattern field */
-  --color-pb-loss: #cf2b18; /* lost bars/values, bad pattern field */
+  --color-pb-win: #0d7a58; /* won bars, swatches and values */
+  --color-pb-loss: #b23a2f; /* lost bars, swatches and values */
+  /* Solid fills that carry `--color-on-field` text. Split from the pair above
+     because those two have to *lighten* in dark mode to stay legible against a
+     dark ground — which would leave light text on a light chip. A fill and an
+     ink are different roles and cannot be one token. */
+  --color-pb-win-field: #0d7a58;
+  --color-pb-loss-field: #b23a2f;
   --color-pb-gold: #f5b731; /* defined by the handoff, currently unused */
+
+  /* ── Theme-relative roles ────────────────────────────────────────────── */
+  /* These exist because a shade cannot flip. `neutral-900` meant three
+     different things — an inverted tile, a modal border and a scrim — and only
+     the first should become *light* in dark mode. Naming the role fixes that. */
+  --color-inverse: #2d2b2b; /* a tile that contrasts with the page */
+  --color-inverse-ink: #f3f2f2; /* text on that tile */
+  --color-scrim: color-mix(in srgb, #2d2b2b 55%, transparent); /* behind the modal */
+  --color-on-field: #f7f5f2; /* text on a saturated win/loss/brand field — light in both themes */
+
+  /* How strongly a club colour tints its half of the matchup row. Dark grounds
+     need more, or a navy crest field is indistinguishable from the page. */
+  --crest-tint: 20%;
+  --crest-tint-far: 7%;
 
   /* ── Type ────────────────────────────────────────────────────────────── */
   --font-heading: 'Archivo', system-ui, sans-serif;
@@ -73,14 +93,17 @@
   --spacing-crest: clamp(34px, 9vw, 46px);
   --spacing-matchup-x: clamp(10px, 3vw, 16px);
   --spacing-matchup-gap: clamp(8px, 2.5vw, 13px);
-  --spacing-vs-x: clamp(7px, 2vw, 14px);
   --spacing-header-gap: clamp(8px, 3vw, 28px);
-  --spacing-brand-gap: clamp(8px, 2vw, 24px);
+  --spacing-nav-x: clamp(11px, 3vw, 18px);
 
-  /* ── Radius — zero everywhere. Never use a rounded-* utility. ────────── */
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
+  /* ── Radius ──────────────────────────────────────────────────────────── */
+  /* Three steps, applied by role rather than by eye: sm for anything chip-sized,
+     md for controls the user clicks, lg for the panels that contain them. Any
+     panel using lg also needs `overflow-hidden`, or its flush children (a strip,
+     a column rule) paint over the corner. */
+  --radius-sm: 4px;
+  --radius-md: 7px;
+  --radius-lg: 12px;
 
   /* ── Elevation ───────────────────────────────────────────────────────── */
   --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
@@ -90,11 +113,24 @@
   /* ── Motion — the only two transitions the handoff defines. ────────────────────── */
   --animate-pb-in: pb-in 160ms ease-out;
   --animate-pb-in-fast: pb-in 140ms ease-out;
+  /* The pattern carousel: content enters from the left and settles rightward. */
+  --animate-pb-slide: pb-slide 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
 
   @keyframes pb-in {
     from {
       opacity: 0;
       transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes pb-slide {
+    from {
+      opacity: 0;
+      transform: translateX(-24px);
     }
     to {
       opacity: 1;
@@ -108,4 +144,63 @@
 @theme inline {
   --color-ground: var(--color-bg);
   --color-ink: var(--color-text);
+}
+
+/* ── Dark theme ────────────────────────────────────────────────────────────
+   Only token *values* change; not one utility class in the app is theme-aware.
+   That is the whole return on having a token layer.
+
+   `data-theme` is always a concrete "light" or "dark" — the inline script in
+   index.html resolves the stored preference (including "system") before first
+   paint, so there is no flash and no second media-query copy of this block. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-bg: #1a1917;
+  --color-surface: #262422;
+  --color-text: #f0eeeb;
+  --color-divider: color-mix(in srgb, #f0eeeb 34%, transparent);
+
+  /* The ramp inverts in *role*, not in order: neutral-100 is still the card
+     fill sitting one step off the page, neutral-200 still the recessed strip
+     and row hover. In dark, "one step off the page" means lighter. */
+  --color-neutral-100: #211f1d;
+  --color-neutral-200: #2a2724;
+  --color-neutral-300: #3a3733;
+  --color-neutral-400: #4e4a45;
+  --color-neutral-500: #6c665f;
+  --color-neutral-600: #8b847b;
+  --color-neutral-700: #aaa39a;
+  --color-neutral-800: #c9c2b9;
+  --color-neutral-900: #e8e1d8;
+
+  /* Brand and result colours are lightened for contrast against a dark ground;
+     the light-mode values fail WCAG AA as text at these sizes. */
+  --color-pb-brand: #a888ff;
+  --color-pb-brand-ink: #cbb6ff; /* active tab/chip fill, so `text-ground` on it reads dark */
+  --color-pb-brand-deep: #2e1c5c; /* the pattern card's neutral field */
+  --color-pb-brand-tint: #2b2247;
+  --color-pb-brand-tint-2: #3b2f60;
+  --color-pb-win: #43c396;
+  --color-pb-loss: #e8796c;
+  --color-pb-win-field: #0f6a4c;
+  --color-pb-loss-field: #8e2f26;
+
+  --color-accent: #ff5c3d; /* the focus ring has to stay the loudest thing on screen */
+  --color-accent-700: #ff9b83; /* validation copy, per the handoff: never raw accent */
+  --color-accent-100: #2a1a14;
+  --color-accent-200: #3a2117;
+
+  --color-inverse: #ece6de;
+  --color-inverse-ink: #1a1917;
+  --color-scrim: color-mix(in srgb, #000000 68%, transparent);
+
+  /* A 22%-of-#2d2b2b shadow is invisible on a dark ground; the modal still
+     needs to lift off the page. */
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #000000 40%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #000000 46%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #000000 55%, transparent);
+
+  --crest-tint: 34%;
+  --crest-tint-far: 12%;
 }

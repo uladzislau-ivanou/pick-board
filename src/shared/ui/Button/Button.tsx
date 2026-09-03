@@ -8,7 +8,7 @@ import { cn } from '@/shared/lib/cn'
  * a secondary control, 46px for a primary action.
  */
 const BASE =
-  'type-heading inline-flex min-h-8.5 items-center justify-start gap-1.5 border text-[14px]/[1.2] transition-colors disabled:cursor-not-allowed disabled:opacity-45'
+  'type-heading inline-flex min-h-8.5 items-center justify-start gap-1.5 rounded-md border text-[14px]/[1.2] transition-colors disabled:cursor-not-allowed disabled:opacity-45'
 
 const VARIANTS = {
   primary:

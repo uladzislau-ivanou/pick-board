@@ -4,7 +4,8 @@ import { cn } from '@/shared/lib/cn'
 
 import type { Insight } from '../model/insight'
 
-const ARROW = 'flex size-7 items-center justify-center border border-ground/55 hover:bg-ground/18'
+const ARROW =
+  'flex size-7 items-center justify-center rounded-sm border border-on-field/55 hover:bg-on-field/18'
 
 export const PatternCarouselControls = ({
   insights,
@@ -24,11 +25,15 @@ export const PatternCarouselControls = ({
           aria-label={insight.kicker}
           aria-current={position === index}
           onClick={() => onChange(position)}
-          className={cn(
-            'size-2.5 border border-ground',
-            position === index ? 'bg-ground' : 'bg-transparent',
-          )}
-        />
+          className="flex size-6 items-center justify-center"
+        >
+          <span
+            className={cn(
+              'size-2.5 rounded-full border border-on-field',
+              position === index ? 'bg-on-field' : 'bg-transparent',
+            )}
+          />
+        </button>
       ))}
     </div>
     <button

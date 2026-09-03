@@ -9,6 +9,7 @@ export interface Team {
   short: string
   abbr: string
   color: string
+  color2: string
 }
 
 export const team = (name: string): Team => {
@@ -18,5 +19,7 @@ export const team = (name: string): Team => {
     short: name.split(' ').at(-1) ?? name,
     abbr: crest?.abbr ?? name.slice(0, 3).toUpperCase(),
     color: crest?.color ?? FALLBACK_COLOR,
+    // An unmapped club has no second colour, so the badge stays a flat square.
+    color2: crest?.color2 ?? crest?.color ?? FALLBACK_COLOR,
   }
 }

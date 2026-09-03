@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 
-/** The shared head shape on both screens: kicker over title, with an aside on the right. */
 export const PageHeader = ({
   kicker,
   title,

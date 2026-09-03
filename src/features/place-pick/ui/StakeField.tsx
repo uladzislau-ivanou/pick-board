@@ -25,8 +25,8 @@ export const StakeField = ({
     >
       Stake
     </label>
-    <div className="mt-1 flex items-stretch border border-divider bg-neutral-100">
-      <span className="flex items-center border-r border-divider px-3.5 text-ink/60">$</span>
+    <div className="mt-1 flex items-stretch overflow-hidden rounded-md border border-divider bg-neutral-100">
+      <span className="flex items-center border-r border-divider px-3 text-ink/60">$</span>
       <input
         id={id}
         ref={ref}

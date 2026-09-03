@@ -18,7 +18,6 @@ type SegmentedControlProps<T extends string> = {
   className?: string
 }
 
-/** The Pending/Settled tabs and the 7 days / 30 days / All period control. */
 export const SegmentedControl = <T extends string>({
   options,
   value,
@@ -26,7 +25,9 @@ export const SegmentedControl = <T extends string>({
   label,
   className,
 }: SegmentedControlProps<T>) => (
-  <fieldset className={cn('inline-flex border border-divider', className)}>
+  <fieldset
+    className={cn('inline-flex overflow-hidden rounded-md border border-divider', className)}
+  >
     <legend className="sr-only">{label}</legend>
     {options.map((option) => {
       const isSelected = option.value === value

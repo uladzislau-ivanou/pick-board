@@ -18,7 +18,7 @@ export const DayGroupHeader = ({
     onClick={onToggle}
     aria-expanded={open}
     aria-controls={panelId}
-    className="flex w-full items-center justify-between gap-4 py-3.5 text-left hover:opacity-65"
+    className="flex w-full items-center justify-between gap-4 py-3.25 text-left hover:opacity-65"
   >
     <span className="flex flex-wrap items-baseline gap-3">
       <span className="type-heading text-[19px] uppercase">{group.label}</span>

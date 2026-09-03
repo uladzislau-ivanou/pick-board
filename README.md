@@ -192,17 +192,50 @@ Tailwind v4's CSS-first config suits a token handoff. `src/shared/styles/tokens.
 `#f3f2f2` in `src/` returns exactly one line. `--color-*: initial` clears Tailwind's default
 palette, so `text-red-500` does not compile — every colour must come from a token.
 
-- `--radius-*: 0` everywhere, and no `rounded-*` utility anywhere.
+- **Corner radius is a three-step scale applied by role**, not by eye: `sm` (4px) for
+  anything chip-sized, `md` (7px) for controls the user clicks, `lg` (12px) for the panels
+  that contain them. Any `lg` panel also carries `overflow-hidden`, or a flush child — a
+  league strip, a column rule — paints straight over the rounded corner. Team crests are
+  the one exception at `rounded-full`. This departs from the Modernist system, which
+  specifies zero radius everywhere; the softer geometry was an explicit product call.
 - The design system's component classes (`.btn`, `.tag`, `.seg`, `.dialog`) are deliberately
   **not** imported. Their bodies are ported into `shared/ui` components instead, so there is one
   source of truth per pixel rather than two.
 - Per-team crest gradients cannot be tokens, because the colour is data. `entities/event/lib/team.ts`
   returns the hex, the cell sets `--crest-color`, and a Tailwind `@utility crest-field` reads it.
   No component builds a CSS string.
-- **No media queries.** Responsiveness is `flex-wrap`, `auto-fit` grids and `clamp()` only, so the
+- **No media queries.** Responsiveness is `flex-wrap`, `auto-fit` grids and `clamp()`, so the
   layout degrades in a single direction: every row wraps, every grid is `auto-fit`, and no element
   carries a fixed width wider than a 375px viewport outside a scroll container.
+- **One **container** query**, on the ledger row (`@container` + `@2xl:`). It is the single place
+  where two arrangements are genuinely needed rather than one that degrades: narrow, the status
+  chip and disclosure sit beside the selection so the row is two lines instead of three; wide,
+  they return past the figures where a disclosure affordance belongs. It keys off the _ledger's_
+  width rather than the viewport's, which is the honest dependency — and flex `order` cannot
+  express "same line here, next line there", so the row uses explicit grid placement.
 - Archivo 400/500/600/800 via `<link>` with `preconnect`, avoiding a CSS `@import` waterfall.
+
+### Light and dark
+
+The theme switcher in the header flips **token values only** — not one utility class in the app
+is theme-aware, and there is not a single `dark:` variant. That is the whole return on having a
+token layer: `bg-ground`, `text-ink` and `border-divider` already meant "the page" and "the ink",
+so redefining what those mean is the entire feature.
+
+Three details make it hold up:
+
+- **`data-theme` is always concrete.** A small script in `index.html` resolves the stored choice
+  — or the system preference, when the user has never chosen — _before first paint_. So there is
+  no flash of the wrong palette, and the stylesheet needs one dark block instead of a second
+  `prefers-color-scheme` copy of it.
+- **Some roles could not be a shade.** `neutral-900` was doing three unrelated jobs: an inverted
+  tile (the toast), a hard border (the modal) and a scrim (the backdrop) — and only the first
+  should become _light_ in dark mode. They are now `--color-inverse`, `--color-inverse-ink` and
+  `--color-scrim`. Likewise `--color-on-field` is text on a saturated win/loss/brand field, and
+  stays light in both themes.
+- **Result colours are re-tuned, not reused.** `--pb-win` `#127a55` and `--pb-loss` `#cf2b18`
+  fail contrast as text on a dark ground, so dark mode lightens them. `color-scheme: dark` also
+  ships, which is what makes the two native `<select>`s in the filter bar render correctly.
 
 ## Accessibility
 
@@ -219,12 +252,18 @@ palette, so `text-red-500` does not compile — every colour must come from a to
 - Accessible names are set explicitly wherever a label and its value are adjacent elements — the
   computed name would otherwise read "Odds1.72" or "Basketball5".
 - Never colour alone: Won / Lost / Pending each carry a text label as well as a fill.
-- The design system's 2px `:focus-visible` ring is left untouched; no component restyles it.
+- **Fill and ink are separate tokens.** `--pb-win` / `--pb-loss` have to _lighten_ in dark mode to
+  stay legible against a dark ground — which would leave light text sitting on a light chip. So
+  solid fills use `--pb-win-field` / `--pb-loss-field`, which stay dark in both themes. Measured:
+  status chips and the pattern field run 4.9–7.5:1 in light and dark, all above the 4.5:1 AA floor.
+- The `:focus-visible` ring is 2px of **brand**, not the design system's accent. The accent is a
+  red, and a red ring around a focused input reads as a validation error before the user has done
+  anything wrong. It is defined once in `base.css`; no component restyles it.
 - Tap targets: prices and primary actions ≥46px, chips and toggles ≥34px, quick stakes 40px.
 
 ## Testing
 
-`npm test` — 241 tests in 32 files, all colocated with their source.
+`npm test` — 246 tests in 33 files, all colocated with their source.
 
 - **The brief's two required targets:** `calculatePayout` and `getPickInsights` (per-rule).
 - Plus `groupByDay`, every `entities/pick/lib/stats` function, `periodRange`/`periodLabel`,
@@ -262,6 +301,8 @@ Where the brief left room, these are the calls made — and why.
 | **The ledger row is not a `<table>`**                        | Its metric columns have to wrap under the left block on a phone while each keeps its own label. That is exactly what a table cannot do.                                                                                                                                                                                                                                                          |
 | **No `i18n`**                                                | `en-US` dates and currency, pinned in `shared/lib/date` so tests stay stable. Every string that reaches a user lives in a component or in `pick-insights/config/messages.ts`.                                                                                                                                                                                                                    |
 | **No per-event pick grouping**                               | Collapsing several picks on one event under an event header is worth it once the data model produces multi-pick events; today every group would be a group of one.                                                                                                                                                                                                                               |
+| **Crests are two-tone monogram badges, not club logos**      | Each club's real primary _and_ secondary colour, a hard diagonal wedge on the badge, a duotone field, and a 3px colour flash on the outer edge of its half of the row. No third-party marks, so the public demo ships clean — and the handoff anticipates the alternative: "swap for `<img>` in the same box if real marks are licensed", which is a one-file change in `CrestBadge`.            |
+| **No visible "AWAY" / "HOME" captions, and no "VS" divider** | Away-first ordering already carries the pairing, and the crest, colour flash and team name earn the room — which is what the matchup row on a real book looks like. The side stays in the accessibility tree via `sr-only`, so nothing is lost for anyone who cannot see the layout. A deliberate deviation from the handoff.                                                                    |
 | **No date-range picker**                                     | The chart _is_ the date picker. A from–to range earns its place only once "All" spans months.                                                                                                                                                                                                                                                                                                    |
 | **Steiger not used**                                         | The official FSD linter was considered and declined; boundaries are enforced by ESLint alone, which keeps the gate to one command.                                                                                                                                                                                                                                                               |
 

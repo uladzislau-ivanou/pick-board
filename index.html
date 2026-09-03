@@ -14,6 +14,15 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      try {
+        var stored = localStorage.getItem('pickboard.theme.v1')
+        var dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+      } catch {
+        document.documentElement.dataset.theme = 'light'
+      }
+    </script>
     <script type="module" src="/src/app/main.tsx"></script>
   </body>
 </html>

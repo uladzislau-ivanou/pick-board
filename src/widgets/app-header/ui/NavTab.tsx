@@ -9,7 +9,7 @@ export const NavTab = ({ to, label, count }: { to: string; label: string; count?
     end
     className={({ isActive }) =>
       cn(
-        'flex items-center border-b-[3px] px-4.5 type-heading text-[13px] tracking-[.04em] uppercase',
+        'flex items-center border-b-[3px] px-nav-x type-heading text-[13px] tracking-[.04em] uppercase',
         isActive ? 'border-pb-brand text-pb-brand-ink' : 'border-transparent text-ink/50',
       )
     }

@@ -21,7 +21,7 @@ export const useLocalStorageState = <T>(key: string, createInitial: () => T) => 
     try {
       window.localStorage.setItem(key, JSON.stringify(value))
     } catch {
-      // Ignored.
+      /* empty */
     }
   }, [key, value])
 

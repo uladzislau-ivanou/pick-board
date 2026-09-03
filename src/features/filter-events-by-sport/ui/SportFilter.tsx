@@ -21,7 +21,7 @@ export const SportFilter = ({
   const present = SPORTS.filter((sport) => counts.has(sport))
 
   return (
-    <div className="flex flex-wrap items-center gap-2 pt-3.5">
+    <div className="flex flex-wrap items-center gap-2 p-3.5">
       <span className="mr-1 text-[10px] font-semibold tracking-[.14em] text-ink/45 uppercase">
         Sport
       </span>
@@ -36,6 +36,7 @@ export const SportFilter = ({
           key={sport}
           label={SPORT_LABELS[sport]}
           count={counts.get(sport) ?? 0}
+          sport={sport}
           selected={value === sport}
           onClick={() => onChange(sport)}
         />

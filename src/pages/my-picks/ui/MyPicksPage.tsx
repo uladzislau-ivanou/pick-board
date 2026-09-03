@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router'
 import { periodLabel, periodRange, usePicks } from '@/entities/pick'
 import { usePickQuery } from '@/features/filter-picks'
 import { ROUTES } from '@/shared/config/routes'
-import { Button } from '@/shared/ui/Button'
 import { PageHeader } from '@/shared/ui/PageHeader'
 import { PickLedger } from '@/widgets/pick-ledger'
 
 import { PerformanceBand } from './PerformanceBand'
+import { PickTotals } from './PickTotals'
 
 /**
  * The page owns the pick query, so a day selected on the chart and the rows in
@@ -27,11 +27,7 @@ export const MyPicksPage = () => {
       <PageHeader
         kicker={`Account · ${periodLabel(query.period, range.spanDays)}`}
         title="My Picks"
-        aside={
-          <Button variant="secondary" onClick={browseEvents}>
-            Back to board
-          </Button>
-        }
+        aside={<PickTotals picks={picks} />}
       />
       <PerformanceBand
         picks={picks}

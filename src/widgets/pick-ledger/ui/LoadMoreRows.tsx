@@ -11,7 +11,7 @@ export const LoadMoreRows = ({
   total: number
   onShowMore: () => void
 }) => (
-  <div className="flex flex-wrap items-center gap-3 px-5 py-4">
+  <div className="flex flex-wrap items-center gap-3 px-5 py-4.5">
     <Button variant="secondary" onClick={onShowMore}>
       Load {Math.min(ROWS_PER_PAGE, total - shown)} more
     </Button>

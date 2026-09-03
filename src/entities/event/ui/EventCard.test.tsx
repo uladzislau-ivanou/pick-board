@@ -8,33 +8,42 @@ import { EventCard } from './EventCard'
 const NOW = new Date(2026, 8, 3, 12).getTime()
 const celtics = getEvents(NOW)[0]
 
+/** Every case renders the same card; only the assertions differ. */
+const renderCard = (onSelectOutcome = vi.fn()) => {
+  render(<EventCard event={celtics} onSelectOutcome={onSelectOutcome} />)
+  return onSelectOutcome
+}
+
 describe('EventCard', () => {
-  it('shows the league, kickoff and market count', () => {
-    render(<EventCard event={celtics} onSelectOutcome={vi.fn()} />)
+  /**
+   * Six checks that differ only in the string they look for, so they are one
+   * case over a table rather than six near-identical bodies. Monograms stand in
+   * for the teams because they are unique — the short names appear again as
+   * moneyline labels.
+   */
+  it.each([
+    ['the league and kickoff', 'NBA · 7:30 PM ET'],
+    ['the market count', '3 markets'],
+    ['the away monogram', 'DEN'],
+    ['the home monogram', 'BOS'],
+    ['a market by its display name', 'Spread'],
+    ['an Over/Under market by its display name', 'Total points'],
+  ])('renders %s', (_case, text) => {
+    renderCard()
 
-    expect(screen.getByText('NBA · 7:30 PM ET')).toBeInTheDocument()
-    expect(screen.getByText('3 markets')).toBeInTheDocument()
+    expect(screen.getByText(text)).toBeInTheDocument()
   })
 
-  it('shows short names, monograms and which side is home', () => {
-    render(<EventCard event={celtics} onSelectOutcome={vi.fn()} />)
+  /** Away-first ordering carries the side visually; screen readers still need it stated. */
+  it('announces which side is home without printing it', () => {
+    renderCard()
 
-    // Monograms are unique; the short names also appear as moneyline labels.
-    expect(screen.getByText('DEN')).toBeInTheDocument()
-    expect(screen.getByText('BOS')).toBeInTheDocument()
-    expect(screen.getByText('away')).toBeInTheDocument()
-    expect(screen.getByText('home')).toBeInTheDocument()
-  })
-
-  it('renders one column per market, labelled by its display name', () => {
-    render(<EventCard event={celtics} onSelectOutcome={vi.fn()} />)
-
-    expect(screen.getByText('Spread')).toBeInTheDocument()
-    expect(screen.getByText('Total points')).toBeInTheDocument()
+    expect(screen.getByText('away team')).toHaveClass('sr-only')
+    expect(screen.getByText('home team')).toHaveClass('sr-only')
   })
 
   it('renders every outcome as a button with odds to two decimals', () => {
-    render(<EventCard event={celtics} onSelectOutcome={vi.fn()} />)
+    renderCard()
 
     expect(screen.getAllByRole('button')).toHaveLength(6)
     expect(screen.getByRole('button', { name: 'Celtics at 1.72' })).toBeInTheDocument()
@@ -42,8 +51,7 @@ describe('EventCard', () => {
   })
 
   it('reports the event, market and outcome behind a tapped price', async () => {
-    const onSelectOutcome = vi.fn()
-    render(<EventCard event={celtics} onSelectOutcome={onSelectOutcome} />)
+    const onSelectOutcome = renderCard()
 
     await userEvent.click(screen.getByRole('button', { name: 'Under 224.5 at 1.94' }))
 
