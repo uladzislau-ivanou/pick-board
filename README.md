@@ -1,2 +1,15 @@
 # pick-board
-Mini sportsbook prototype: browse events, place picks with live payout calc, track them on a dashboard with win-rate insights and a 7-day volume chart. React + TypeScript, Context API, Vitest.
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Scripts
+
+- `npm run dev` — start the dev server
+- `npm run build` — type-check and build for production
+- `npm run lint` — run ESLint
+- `npm run preview` — preview the production build locally
