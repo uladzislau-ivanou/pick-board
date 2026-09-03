@@ -1,0 +1,111 @@
+/* The token layer: Modernist design system + PickBoard brand, ported from
+   design_handoff_pickboard. The only place a raw color, font, radius or shadow
+   value appears — a search for #f3f2f2 in src should return one line. */
+
+@theme {
+  /* Every color must come from a token below; `text-red-500` should not compile. */
+  --color-*: initial;
+
+  /* ── Modernist · color roles ─────────────────────────────────────────── */
+  --color-bg: #f3f2f2;
+  --color-surface: #eae9e9;
+  --color-text: #201e1d;
+  --color-accent: #ec3013;
+  --color-accent-2: #e15b47;
+  --color-divider: color-mix(in srgb, #201e1d 40%, transparent);
+  --color-white: #ffffff;
+
+  /* Tonal ramps, generated in OKLCH on one shared lightness scale. */
+  --color-neutral-100: #f8f4f4;
+  --color-neutral-200: #eae7e7;
+  --color-neutral-300: #d7d3d3;
+  --color-neutral-400: #bab6b6;
+  --color-neutral-500: #9b9797;
+  --color-neutral-600: #7d7979;
+  --color-neutral-700: #605d5d;
+  --color-neutral-800: #444141;
+  --color-neutral-900: #2d2b2b;
+
+  --color-accent-100: #fff2ef;
+  --color-accent-200: #ffe0d9;
+  --color-accent-300: #ffc4b8;
+  --color-accent-400: #ff9783;
+  --color-accent-500: #ff563c;
+  --color-accent-600: #dd2b0f;
+  --color-accent-700: #ae1800;
+  --color-accent-800: #7c1405;
+  --color-accent-900: #4d170e;
+
+  --color-accent-2-100: #fff2ef;
+  --color-accent-2-200: #ffe0da;
+  --color-accent-2-300: #ffc4b9;
+  --color-accent-2-400: #ff9784;
+  --color-accent-2-500: #ef6853;
+  --color-accent-2-600: #c94b39;
+  --color-accent-2-700: #9e3526;
+  --color-accent-2-800: #71261b;
+  --color-accent-2-900: #471d16;
+
+  /* ── PickBoard brand layer ───────────────────────────────────────────── */
+  --color-pb-brand: #7c3aed; /* brand mark, active tab rule, odds, pending, primary action */
+  --color-pb-brand-ink: #2a1065; /* active tab label, active chip fill, pending chip text */
+  --color-pb-brand-deep: #1b0b45; /* reserved — deepest step */
+  --color-pb-brand-tint: #f1eaff; /* price hover, pending chip fill, selected chart day */
+  --color-pb-brand-tint-2: #e2d5ff; /* price active, selected quick-stake */
+  --color-pb-win: #127a55; /* won bars/chips/values, good pattern field */
+  --color-pb-loss: #cf2b18; /* lost bars/values, bad pattern field */
+  --color-pb-gold: #f5b731; /* defined by the handoff, currently unused */
+
+  /* ── Type ────────────────────────────────────────────────────────────── */
+  --font-heading: 'Archivo', system-ui, sans-serif;
+  --font-body: 'Archivo', system-ui, sans-serif;
+  --font-heading-weight: 800;
+
+  /* The two fluid sizes worth naming; other sizes are literals at their use site. */
+  --text-team: clamp(14px, 3.4vw, 17px);
+  --text-crest: clamp(11px, 2.6vw, 14px);
+
+  /* ── Space ───────────────────────────────────────────────────────────── */
+  /* A 4px base reproduces --space-1…8 exactly. The scale has no 5 or 7. */
+  --spacing: 4px;
+
+  /* Fluid gutters repeated across the matchup row and the sticky header. */
+  --spacing-crest: clamp(34px, 9vw, 46px);
+  --spacing-matchup-x: clamp(10px, 3vw, 16px);
+  --spacing-matchup-gap: clamp(8px, 2.5vw, 13px);
+  --spacing-vs-x: clamp(7px, 2vw, 14px);
+  --spacing-header-gap: clamp(8px, 3vw, 28px);
+  --spacing-brand-gap: clamp(8px, 2vw, 24px);
+
+  /* ── Radius — zero everywhere. Never use a rounded-* utility. ────────── */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+
+  /* ── Elevation ───────────────────────────────────────────────────────── */
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+
+  /* ── Motion — the only two transitions the handoff defines. ────────────────────── */
+  --animate-pb-in: pb-in 160ms ease-out;
+  --animate-pb-in-fast: pb-in 140ms ease-out;
+
+  @keyframes pb-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* Aliases for the two roles whose handoff names make awkward utilities
+   (bg-bg, text-text). `inline` compiles them to the var, not a second hex. */
+@theme inline {
+  --color-ground: var(--color-bg);
+  --color-ink: var(--color-text);
+}
