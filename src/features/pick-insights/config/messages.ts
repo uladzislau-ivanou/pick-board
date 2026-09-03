@@ -2,11 +2,6 @@ import type { MarketType } from '@/shared/config/markets'
 import { formatMoney } from '@/shared/lib/money'
 import { plural } from '@/shared/lib/text'
 
-/**
- * Every sentence the insight engine can produce. Rules decide *whether* they
- * fire; this file decides *what they say* — which is what keeps the rules short
- * and makes the out-of-scope i18n a one-file change.
- */
 export const MESSAGES = {
   notEnoughHistory: () => ({
     kicker: 'Not enough history',

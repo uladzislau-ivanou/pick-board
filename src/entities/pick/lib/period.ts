@@ -8,7 +8,6 @@ export type PickPeriod = '7d' | '30d' | 'all'
 
 const FIXED_DAYS: Record<'7d' | '30d', number> = { '7d': 7, '30d': 30 }
 
-/** "All" still needs a chart width: at least a week, at most a readable month and a half. */
 const ALL_MIN_DAYS = 7
 const ALL_MAX_DAYS = 45
 
@@ -19,15 +18,11 @@ const allTimeSpan = (picks: readonly Pick[], todayStart: number) => {
 }
 
 export interface PeriodRange {
-  /** Number of days the window covers, inclusive of today. */
   spanDays: number
-  /** Local midnight of the first day in the window. */
   startDay: number
-  /** Local midnight of today. */
   endDay: number
 }
 
-/** The day window a period covers, always ending today. */
 export const periodRange = (
   period: PickPeriod,
   picks: readonly Pick[],
@@ -41,10 +36,5 @@ export const periodRange = (
 export const isInPeriod = (pick: Pick, range: PeriodRange) =>
   startOfDay(pick.placedAt) >= range.startDay
 
-/**
- * How a period describes itself: the chart heading and the page kicker have to
- * agree, so neither owns the wording. "All" reports the span it resolved to,
- * because "all time" over four days would overstate the data.
- */
 export const periodLabel = (period: PickPeriod, spanDays: number) =>
   period === 'all' ? `All time · ${plural(spanDays, 'day')}` : `Last ${plural(spanDays, 'day')}`

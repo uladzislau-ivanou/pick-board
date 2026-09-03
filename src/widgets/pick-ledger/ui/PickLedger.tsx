@@ -15,10 +15,6 @@ import { LedgerEmptyState } from './LedgerEmptyState'
 import { LedgerRows } from './LedgerRows'
 import { LoadMoreRows } from './LoadMoreRows'
 
-/**
- * Controlled by the page's `PickQuery`, so the chart above and these rows read
- * the same state. Only the row disclosure is local — it must survive paging.
- */
 export const PickLedger = ({
   picks,
   query,

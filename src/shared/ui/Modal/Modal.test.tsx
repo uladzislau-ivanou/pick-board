@@ -5,7 +5,6 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { Modal } from './Modal'
 
-/** A trigger plus the modal, so focus return can be observed for real. */
 const Harness = () => {
   const [open, setOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -103,7 +102,6 @@ describe('Modal', () => {
     render(<Harness />)
     await userEvent.click(screen.getByRole('button', { name: 'Open' }))
 
-    // Stake -> Place pick -> wraps back to Stake.
     await userEvent.tab()
     expect(screen.getByRole('button', { name: 'Place pick' })).toHaveFocus()
 

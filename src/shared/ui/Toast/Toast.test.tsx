@@ -30,8 +30,6 @@ const renderWithProvider = (onAction?: () => void) =>
 const click = (name: string) => fireEvent.click(screen.getByRole('button', { name }))
 
 describe('ToastProvider', () => {
-  // Clicks go through fireEvent rather than user-event here: user-event awaits
-  // internally, which deadlocks against faked timers.
   beforeEach(() => vi.useFakeTimers())
   afterEach(() => vi.useRealTimers())
 

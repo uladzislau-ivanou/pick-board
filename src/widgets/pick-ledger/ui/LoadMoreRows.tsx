@@ -1,7 +1,6 @@
 import { ROWS_PER_PAGE } from '@/shared/config/app'
 import { Button } from '@/shared/ui/Button'
 
-/** Never infinite scroll: a record users audit needs a reachable bottom. */
 export const LoadMoreRows = ({
   shown,
   total,

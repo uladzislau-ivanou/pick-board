@@ -1,20 +1,9 @@
 export interface TeamCrest {
   abbr: string
-  /** The club's primary colour: badge fill and the tint on its half of the row. */
   color: string
-  /** The club's secondary colour: the badge's lower diagonal half and the far end of the tint. */
   color2: string
 }
 
-/**
- * Monogram badges in each club's real primary and secondary colours — no
- * third-party marks, which keeps the public demo clean. The handoff anticipates
- * the alternative: "swap for `<img>` in the same box if real marks are
- * licensed", and `CrestBadge` is the only file that would change.
- *
- * These hex values are data, not design tokens, which is why they live here and
- * not in the token sheet.
- */
 export const TEAM_CRESTS: Record<string, TeamCrest> = {
   'Boston Celtics': { abbr: 'BOS', color: '#007a33', color2: '#bb9753' },
   'Denver Nuggets': { abbr: 'DEN', color: '#0e2240', color2: '#fec524' },

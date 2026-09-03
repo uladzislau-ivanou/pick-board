@@ -6,16 +6,12 @@ import type { PeriodRange } from './period'
 import { isResolved, pickReturn, totalStaked } from './stats'
 
 export interface DayBucket {
-  /** Local start of day. */
   day: number
   wonStake: number
   lostStake: number
   pendingStake: number
-  /** Everything staked that day, pending included. */
   staked: number
-  /** What the day's winners returned. */
   returned: number
-  /** Returned less staked across *resolved* picks; pending stake is not lost yet. */
   net: number
   count: number
 }
@@ -38,7 +34,6 @@ const toBucket = (day: number, picks: readonly Pick[]): DayBucket => {
   }
 }
 
-/** One bucket per day in the range, ascending, including days with no picks. */
 export const dailyBuckets = (picks: readonly Pick[], range: PeriodRange): DayBucket[] => {
   const byDay = new Map<number, Pick[]>()
 

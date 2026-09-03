@@ -4,10 +4,6 @@ import { SPORTS, SPORT_LABELS } from '@/shared/config/sports'
 import type { SportFilterValue } from '../model/types'
 import { SportChip } from './SportChip'
 
-/**
- * Controlled: the board owns the selection, because changing it also has to
- * reopen the day groups and reset the day window.
- */
 export const SportFilter = ({
   events,
   value,

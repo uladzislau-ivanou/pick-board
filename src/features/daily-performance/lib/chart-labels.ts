@@ -3,7 +3,6 @@ import { formatDayWithDate } from '@/shared/lib/date'
 import { formatMoney, formatSigned } from '@/shared/lib/money'
 import { plural } from '@/shared/lib/text'
 
-/** The figures a column carries as text, for hover and for screen readers alike. */
 export const dayFigures = (bucket: DayBucket) =>
   bucket.count === 0
     ? `${formatDayWithDate(bucket.day)}: no picks`
@@ -14,7 +13,6 @@ export const dayActionHint = (selected: boolean) =>
 
 const hasSettled = (bucket: DayBucket) => bucket.wonStake > 0 || bucket.lostStake > 0
 
-/** Blank for an empty day, "open" while nothing has settled. */
 export const netLabel = (bucket: DayBucket) => {
   if (bucket.count === 0) return ''
   if (!hasSettled(bucket)) return 'open'
@@ -28,7 +26,6 @@ export const netColor = (bucket: DayBucket) => {
   return 'text-ink'
 }
 
-/** Past ten days the per-column figures stop fitting, so they move to the hover label. */
 export const isDense = (spanDays: number) => spanDays > 10
 
 export const labelEvery = (spanDays: number) => Math.ceil(spanDays / 7)

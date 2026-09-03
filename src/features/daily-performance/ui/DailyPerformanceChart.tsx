@@ -24,7 +24,6 @@ import {
 import { ChartLegend } from './ChartLegend'
 import { PeriodTotalsRow } from './PeriodTotalsRow'
 
-/** Bottom to top, so a day reads won → lost → still open. */
 const SERIES = [
   { key: 'wonStake', color: 'var(--color-pb-win)' },
   { key: 'lostStake', color: 'var(--color-pb-loss)' },
@@ -33,7 +32,6 @@ const SERIES = [
 
 const BAR_RADIUS = 3
 
-/** A rect with only its top corners rounded. */
 const cappedRect = (x: number, y: number, width: number, height: number, radius: number) => {
   const r = Math.min(radius, width / 2, height)
   return [
@@ -57,12 +55,6 @@ type BarShapeProps = {
   payload?: DayBucket
 }
 
-/**
- * Rounds a segment only when nothing is stacked above it that day. Rounding
- * every segment leaves a visible notch wherever a square-bottomed segment sits
- * on a rounded one — and which series ends up on top varies by day, so it
- * cannot be decided per series.
- */
 const StackedBar = ({ x, y, width, height, fill, dataKey, payload }: BarShapeProps) => {
   if (x === undefined || y === undefined || !width || !height) return null
 
@@ -72,15 +64,6 @@ const StackedBar = ({ x, y, width, height, fill, dataKey, payload }: BarShapePro
   return <path d={cappedRect(x, y, width, height, isTop ? BAR_RADIUS : 0)} fill={fill} />
 }
 
-/**
- * Recharts draws the bars; the click target, the accessible name and keyboard
- * access come from a transparent button per column laid over them. SVG rects
- * cannot carry an accessible name, and the handoff requires one.
- *
- * Every row here — nets above, bars, labels below — is a flex row of equal
- * `flex-1` cells, and the chart uses the same equal bands, so the columns line
- * up without measuring anything.
- */
 export const DailyPerformanceChart = ({
   picks,
   period,

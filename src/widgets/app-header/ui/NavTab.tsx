@@ -2,7 +2,6 @@ import { NavLink } from 'react-router'
 
 import { cn } from '@/shared/lib/cn'
 
-/** `NavLink` sets `aria-current="page"` on the active tab for us. */
 export const NavTab = ({ to, label, count }: { to: string; label: string; count?: number }) => (
   <NavLink
     to={to}

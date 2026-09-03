@@ -1,9 +1,5 @@
 import { formatDayWithDate } from '@/shared/lib/date'
 
-/**
- * Not `shared/ui/Chip`: the handoff gives this one a tint fill with a brand
- * border, which is Chip's hover state rather than either of its variants.
- */
 export const DayFilterChip = ({ day, onClear }: { day: number; onClear: () => void }) => {
   const label = formatDayWithDate(day)
 

@@ -3,7 +3,6 @@ import { createContext, useContext } from 'react'
 import type { NewPick, Pick } from './types'
 
 export interface PicksState {
-  /** Newest first. */
   picks: Pick[]
   addPick: (draft: NewPick) => void
 }

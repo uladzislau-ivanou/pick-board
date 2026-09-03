@@ -4,7 +4,6 @@ import { DAY } from '@/shared/lib/date'
 
 import type { SportEvent } from '../model/types'
 
-/** `[label, decimal odds]` */
 type OutcomeSeed = readonly [string, number]
 
 interface MarketSeed {
@@ -18,7 +17,6 @@ interface EventSeed {
   league: string
   home: string
   away: string
-  /** `[day offset from today, hour, minute]` */
   at: readonly [number, number, number]
   markets: readonly MarketSeed[]
 }
@@ -116,11 +114,6 @@ const kickoffAt = (now: number, [dayOffset, hour, minute]: EventSeed['at']) => {
   return date.getTime() + dayOffset * DAY
 }
 
-/**
- * `now` is injected and kickoffs are relative to it, so the board covers the
- * next seven days whenever the app is opened. Market and outcome ids are
- * derived from position rather than hand-written.
- */
 export const getEvents = (now: number): SportEvent[] =>
   SEEDS.map((seed, eventIndex) => {
     const id = `e${eventIndex + 1}`

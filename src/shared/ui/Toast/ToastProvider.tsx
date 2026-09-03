@@ -4,7 +4,6 @@ import { TOAST_MS } from '@/shared/config/app'
 
 import { ToastContext, type Toast } from './toast-context'
 
-/** One toast at a time, auto-dismissed. State and view together: there is only ever one. */
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toast, setToast] = useState<Toast | null>(null)
 
@@ -21,7 +20,6 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     <ToastContext.Provider value={value}>
       {children}
       {toast ? (
-        // <output> carries an implicit status role.
         <output className="fixed bottom-5 left-5 z-[70] flex max-w-[calc(100vw-40px)] animate-pb-in items-center gap-3 rounded-md bg-inverse px-4.5 py-3.5 text-[13px] text-inverse-ink">
           <span>{toast.message}</span>
           {toast.actionLabel ? (

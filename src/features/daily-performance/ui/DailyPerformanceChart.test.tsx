@@ -25,7 +25,6 @@ const renderChart = (props: Partial<Parameters<typeof DailyPerformanceChart>[0]>
   return user
 }
 
-/** One transparent button per day sits over the bars. */
 const columns = () => screen.getAllByRole('button')
 
 describe('DailyPerformanceChart', () => {
@@ -69,7 +68,6 @@ describe('DailyPerformanceChart', () => {
   it('carries the day figures as a text label, not just a hover title', () => {
     renderChart()
 
-    // Index 5 is yesterday; the seeded picks run 1 to 6 days back, so today is empty.
     const label = columns()[5].getAttribute('aria-label') ?? ''
     expect(label).toMatch(/^Wed, Sep 2: /)
     expect(label).toContain('staked')
@@ -105,9 +103,7 @@ describe('DailyPerformanceChart', () => {
   it('shows the amount staked per day, and an em-dash where nothing was', () => {
     renderChart()
 
-    // Two seeded picks landed yesterday: $30 and $25.
     expect(screen.getByText('$55')).toBeInTheDocument()
-    // The seeded picks run 1-6 days back, so today staked nothing.
     expect(screen.getAllByText('—').length).toBeGreaterThan(0)
   })
 
@@ -133,7 +129,6 @@ describe('DailyPerformanceChart', () => {
     renderChart({ period: '30d' })
 
     expect(columns()).toHaveLength(30)
-    // Weekday names give way to day-of-month numbers, and "$45 in" disappears.
     expect(screen.queryAllByText(/ in$/)).toHaveLength(0)
     expect(screen.queryByText('Thu')).not.toBeInTheDocument()
   })

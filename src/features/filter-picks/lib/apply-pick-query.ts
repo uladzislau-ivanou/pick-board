@@ -10,7 +10,6 @@ import { startOfDay } from '@/shared/lib/date'
 
 import type { PickQuery, PickTab, SortOption } from '../model/pick-query'
 
-/** Every comparator falls back to newest first, so paging never reshuffles ties. */
 const SORTS: Record<SortOption, (a: Pick, b: Pick) => number> = {
   recent: (a, b) => b.placedAt - a.placedAt,
   stake: (a, b) => b.stake - a.stake || b.placedAt - a.placedAt,
@@ -19,17 +18,13 @@ const SORTS: Record<SortOption, (a: Pick, b: Pick) => number> = {
 }
 
 export interface LedgerView {
-  /** The query's tab, or the data-driven default when the user has not chosen one. */
   tab: PickTab
   pendingCount: number
   settledCount: number
-  /** The page the user can see right now. */
   rows: Pick[]
-  /** The whole filtered set, so "6 of 10 shown" can tell the truth. */
   totalRows: number
 }
 
-/** Filter and sort the whole set, then page it — never the other way round. */
 export const applyPickQuery = (
   picks: readonly Pick[],
   query: PickQuery,

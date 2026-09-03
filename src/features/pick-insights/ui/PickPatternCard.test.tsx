@@ -66,7 +66,6 @@ describe('PickPatternCard', () => {
 
     await user.click(screen.getByRole('button', { name: 'Cold market' }))
 
-    // All four seeded Over/Under picks lost.
     expect(screen.getByText('Last 4 Over/Under')).toBeInTheDocument()
     expect(screen.getAllByText('Lost')).toHaveLength(4)
     expect(screen.queryAllByText('Won')).toHaveLength(0)

@@ -10,11 +10,6 @@ type LabeledValueProps = {
   valueClassName?: string
 }
 
-/**
- * Summary totals, chart totals and the ledger's metric columns. Spans rather
- * than divs, because those columns sit inside the full-width row `<button>`,
- * which may only contain phrasing content.
- */
 export const LabeledValue = ({
   label,
   value,

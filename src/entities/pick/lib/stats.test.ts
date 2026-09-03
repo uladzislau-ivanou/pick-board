@@ -92,7 +92,6 @@ describe('winRate', () => {
 
 describe('netReturn', () => {
   it('is returned less staked across resolved picks', () => {
-    // Won 25 at 1.80 returns 45; lost 20 returns nothing. Staked 45.
     expect(netReturn([pick('Won', { stake: 25, odds: 1.8 }), pick('Lost', { stake: 20 })])).toBe(0)
   })
 

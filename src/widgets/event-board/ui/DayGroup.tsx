@@ -24,8 +24,6 @@ export const DayGroup = ({
   return (
     <section className="border-t-2 border-divider">
       <DayGroupHeader group={group} open={open} panelId={panelId} onToggle={onToggle} />
-      {/* The panel stays in the DOM so `aria-controls` resolves, but a collapsed
-          group renders no event cards at all. */}
       <div id={panelId} hidden={!open} className="flex flex-col gap-5 pb-5">
         {open
           ? group.events.map((event) => (

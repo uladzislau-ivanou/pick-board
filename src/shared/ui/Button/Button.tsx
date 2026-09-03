@@ -2,11 +2,6 @@ import type { ComponentPropsWithRef } from 'react'
 
 import { cn } from '@/shared/lib/cn'
 
-/**
- * `justify-start`: the design system requires labels flush left, even in a wide
- * button. `min-h-8.5` / `min-h-[46px]` are the handoff's tap targets — 34px for
- * a secondary control, 46px for a primary action.
- */
 const BASE =
   'type-heading inline-flex min-h-8.5 items-center justify-start gap-1.5 rounded-md border text-[14px]/[1.2] transition-colors disabled:cursor-not-allowed disabled:opacity-45'
 

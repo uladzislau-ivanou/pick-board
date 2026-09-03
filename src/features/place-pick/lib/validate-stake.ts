@@ -1,5 +1,4 @@
 export interface StakeValidation {
-  /** The parsed amount, or 0 when the stake is not usable. */
   amount: number
   error: string | null
 }

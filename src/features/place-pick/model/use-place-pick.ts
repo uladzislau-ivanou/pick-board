@@ -5,10 +5,6 @@ import { DEFAULT_STAKE } from '@/shared/config/app'
 import { sanitizeStake } from '../lib/sanitize-stake'
 import type { PickDraft } from './types'
 
-/**
- * Modal state, kept local as the brief allows: a second Context here would add
- * indirection without removing a single prop.
- */
 export const usePlacePick = () => {
   const [draft, setDraft] = useState<PickDraft | null>(null)
   const [stake, setStake] = useState(DEFAULT_STAKE)

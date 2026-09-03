@@ -7,7 +7,6 @@ import { ThemeToggle } from './ThemeToggle'
 const root = () => document.documentElement
 const theme = () => root().getAttribute('data-theme')
 
-/** The pre-paint script in index.html is what normally sets this. */
 const bootWith = (initial: 'light' | 'dark') => {
   root().setAttribute('data-theme', initial)
   const user = userEvent.setup()

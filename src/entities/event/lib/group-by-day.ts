@@ -2,7 +2,6 @@ import { daysBetween, formatRelativeDay, formatShortDate, startOfDay } from '@/s
 
 import type { DayGroup, SportEvent } from '../model/types'
 
-/** Groups by local start of day, days ascending, kickoffs ascending inside each day. */
 export const groupByDay = (events: readonly SportEvent[], now: number): DayGroup[] => {
   const byDay = new Map<number, SportEvent[]>()
 

@@ -17,7 +17,6 @@ const eventAt = (id: string, kickoffAt: number): SportEvent => ({
   markets: [],
 })
 
-/** Local time on a day offset from NOW, so no assertion depends on the timezone. */
 const at = (dayOffset: number, hour: number, minute = 0) =>
   new Date(2026, 8, 3 + dayOffset, hour, minute).getTime()
 

@@ -5,7 +5,6 @@ import { cn } from '@/shared/lib/cn'
 import { team } from '../lib/team'
 import { CrestBadge } from './CrestBadge'
 
-/** Club colours are data, so they reach CSS as variables the crest utilities read. */
 export const TeamCell = ({
   name,
   side,

@@ -2,7 +2,6 @@ import { Moon, Sun } from 'lucide-react'
 
 import { useTheme } from '@/shared/lib/use-theme'
 
-/** The label names the destination, not the current state: it has to be actionable. */
 export const ThemeToggle = () => {
   const { theme, toggle } = useTheme()
   const next = theme === 'dark' ? 'light' : 'dark'

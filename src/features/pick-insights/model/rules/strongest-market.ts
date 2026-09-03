@@ -16,8 +16,6 @@ export const strongestMarketRule: InsightRule = {
     const rate = ratePercent(picks)
     if (rate < STRONG_ENOUGH) return []
 
-    // "Across everything else" has to exclude this market, or the comparison
-    // is partly against itself.
     const elsewhere = ratePercent(resolved.filter((pick) => pick.market !== best))
 
     return [

@@ -8,10 +8,6 @@ import { DAY, formatDayWithDate, startOfDay } from '@/shared/lib/date'
 
 import { MyPicksPage } from './MyPicksPage'
 
-/**
- * `PicksProvider` seeds from the real clock, so days are derived here rather
- * than pinned. Every assertion is about behaviour, not about a fixed date.
- */
 const YESTERDAY = startOfDay(Date.now() - DAY)
 
 const renderPage = () => {
@@ -31,10 +27,8 @@ const renderPage = () => {
 const chartDay = (day: number) =>
   screen.getByRole('button', { name: new RegExp(`^${formatDayWithDate(day)}:`) })
 
-/** Only ledger rows carry `aria-expanded`. */
 const rows = () => screen.getAllByRole('button').filter((el) => el.hasAttribute('aria-expanded'))
 
-/** The three summary figures are label / value / sub-line inside one element. */
 const total = (label: string) => within(screen.getByText(label).parentElement as HTMLElement)
 
 describe('MyPicksPage summary', () => {
@@ -59,7 +53,6 @@ describe('MyPicksPage summary', () => {
 
     await user.click(screen.getByRole('button', { name: '30 days' }))
 
-    // The kicker and the chart heading name the same period from one source.
     expect(screen.getByRole('heading', { name: 'Last 30 days' })).toBeInTheDocument()
     expect(screen.getByText('Account · Last 30 days')).toBeInTheDocument()
     expect(total('Total staked').getByText('$250')).toBeInTheDocument()

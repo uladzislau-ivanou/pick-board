@@ -5,7 +5,6 @@ import { formatOdds } from '@/shared/lib/odds'
 import { calculatePayout } from '../lib/calculate-payout'
 import type { Pick, PickStatus } from '../model/types'
 
-/** Why the pick counts the way it does — the question the totals above provoke. */
 const COUNTING_NOTES: Record<PickStatus, string> = {
   Pending:
     'Pending picks count toward Total Staked and Pending Payout, but not toward win rate — that only counts resolved picks.',
@@ -13,10 +12,6 @@ const COUNTING_NOTES: Record<PickStatus, string> = {
   Lost: 'Counted as a loss in your strike rate; the stake is gone, nothing was returned.',
 }
 
-/**
- * Not `shared/ui/LabeledValue`: placement metadata is set in 13px body medium,
- * where every other labelled value in the app is a heading-weight figure.
- */
 const DetailItem = ({ label, value }: { label: string; value: string }) => (
   <div>
     <dt className="text-[10px] font-semibold tracking-[.12em] text-ink/55 uppercase">{label}</dt>

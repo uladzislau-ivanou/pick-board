@@ -11,7 +11,6 @@ import {
   startOfDay,
 } from './date'
 
-/** Fixed local timestamps so these assertions never depend on the clock. */
 const at = (year: number, month: number, day: number, hour = 12, minute = 0) =>
   new Date(year, month - 1, day, hour, minute).getTime()
 
@@ -30,7 +29,6 @@ describe('daysBetween', () => {
   })
 
   it('is unaffected by a daylight-saving shift', () => {
-    // US DST ends 2026-11-01, so this week contains a 25-hour day.
     expect(daysBetween(at(2026, 10, 30), at(2026, 11, 3))).toBe(4)
   })
 })

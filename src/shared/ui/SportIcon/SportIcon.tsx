@@ -1,10 +1,5 @@
 import type { Sport } from '@/shared/config/sports'
 
-/**
- * Lucide ships no ball-sport icons (checked across all exports in v1.40), so
- * these are hand-drawn to its geometry: 24px box, no fill, 1.6 stroke, square
- * caps. `lucide-react` still supplies the interface icons.
- */
 const PATHS: Record<Sport, readonly string[]> = {
   basketball: [
     'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20',

@@ -65,7 +65,6 @@ export const PlacePickModal = ({
           describedBy={ERROR_ID}
         />
         <QuickStakes value={stake} onSelect={onStakeChange} />
-        {/* Always rendered so the line reserves its space and nothing shifts. */}
         <p id={ERROR_ID} aria-live="polite" className="min-h-4 text-[11.5px] text-accent-700">
           {error}
         </p>

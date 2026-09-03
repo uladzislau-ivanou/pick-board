@@ -15,7 +15,6 @@ describe('getSeedPicks', () => {
   })
 
   it('returns them newest first, matching how a placed pick is prepended', () => {
-    // Same-day rows keep their table order, so this pins the tie-break too.
     expect(picks.map((pick) => pick.id)).toEqual([
       'h9',
       'h10',

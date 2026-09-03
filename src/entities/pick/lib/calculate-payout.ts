@@ -1,4 +1,3 @@
-/** Gross return, stake included. Zero for anything that is not a real wager. */
 export const calculatePayout = (stake: number, odds: number) => {
   if (!Number.isFinite(stake) || !Number.isFinite(odds)) return 0
   if (stake <= 0 || odds <= 1) return 0

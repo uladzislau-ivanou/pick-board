@@ -1,9 +1,5 @@
 import { cn } from '@/shared/lib/cn'
 
-/**
- * A span, not a button: both call sites sit inside a full-width button whose
- * `aria-expanded` already announces the state, so this is decoration.
- */
 export const DisclosureSquare = ({ open, className }: { open: boolean; className?: string }) => (
   <span
     aria-hidden

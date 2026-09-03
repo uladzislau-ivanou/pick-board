@@ -1,10 +1,5 @@
 import type { Ref } from 'react'
 
-/**
- * The label is bound with `htmlFor` rather than wrapping the input, so the
- * accessible name is "Stake" and not "Stake$" — the currency prefix sits in
- * the same box but outside the label.
- */
 export const StakeField = ({
   id,
   ref,

@@ -22,20 +22,11 @@ const RETURN_COLORS: Record<PickStatus, string> = {
   Lost: 'text-pb-loss',
 }
 
-/** A lost pick shows what it cost; everything else shows what it returns. */
 const returnValue = (pick: Pick) =>
   pick.status === 'Lost'
     ? formatMoney(-pick.stake)
     : formatMoney(calculatePayout(pick.stake, pick.odds))
 
-/**
- * Deliberately not a `<table>`: the metric columns have to wrap under the left
- * block on a phone while each keeps its own label, which a table cannot do.
- *
- * The row carries an explicit `aria-label` because the accessible name a
- * screen reader would otherwise compute from the columns runs the labels into
- * their values — "Odds1.72 Stake$25".
- */
 export const PickRow = ({
   pick,
   expanded,
@@ -76,13 +67,6 @@ export const PickRow = ({
           </span>
         </span>
 
-        {/* Narrow: the figures take a second grid row and status sits beside
-            the selection, so the row is two lines rather than three. Wide:
-            everything is one line and status returns past the figures, where a
-            disclosure affordance belongs. Explicit placement rather than flex
-            `order`, which cannot express "same line here, next line there" —
-            and keyed off the container, since what matters is the room the
-            ledger has, not the viewport. */}
         <span className="col-span-2 col-start-1 row-start-2 flex flex-wrap gap-x-5 gap-y-2 @2xl:col-span-1 @2xl:col-start-2 @2xl:row-start-1">
           <LabeledValue label="Odds" value={formatOdds(pick.odds)} className="w-18.5" />
           <LabeledValue label="Stake" value={formatMoney(pick.stake)} className="w-18.5" />

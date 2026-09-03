@@ -10,7 +10,6 @@ const NOW = new Date(2026, 8, 3, 12).getTime()
 
 let sequence = 0
 
-/** `daysAgo` also orders the list: the newest pick is the smallest offset. */
 const pick = (
   status: PickStatus,
   {
@@ -33,7 +32,6 @@ const pick = (
 const kickers = (picks: Pick[]) => getPickInsights(picks, NOW).map((insight) => insight.kicker)
 const tones = (picks: Pick[]) => getPickInsights(picks, NOW).map((insight) => insight.tone)
 
-/** Wins and losses that fire nothing: alternating results, flat stakes, one market. */
 const neutralHistory = (): Pick[] => [
   pick('Won', { daysAgo: 10 }),
   pick('Lost', { daysAgo: 11 }),
@@ -127,7 +125,6 @@ describe('getPickInsights market rules', () => {
     const strongest = getPickInsights(picks, NOW).find(
       (insight) => insight.kicker === 'Strongest market',
     )
-    // Moneyline is 100%; everything else is 0%, not the 60% all-time figure.
     expect(strongest?.detail).toContain('against 0% across everything else')
   })
 })

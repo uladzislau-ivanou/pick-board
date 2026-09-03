@@ -6,11 +6,6 @@ const SETTLE_DELAY = 4 * 60 * 60 * 1000
 
 type SeedRow = Omit<Pick, 'placedAt' | 'settledAt'> & { daysAgo: number }
 
-/**
- * Listed oldest first to match the handoff table. Deliberately shaped so a good
- * and a bad pattern fire at once on first load: last-5 form is 4 wins, while
- * the four most recent Over/Under picks are all losses.
- */
 const ROWS: readonly SeedRow[] = [
   {
     id: 'h1',
@@ -119,10 +114,5 @@ const toPick = ({ daysAgo, ...row }: SeedRow, now: number): Pick => {
   return { ...row, placedAt, settledAt: placedAt + SETTLE_DELAY }
 }
 
-/**
- * `now` is injected rather than read here, so tests and the chart stay
- * deterministic. Several rows land on the same day; `sort` is stable, so those
- * keep their table order, which is what makes last-5 form read as 4 wins.
- */
 export const getSeedPicks = (now: number): Pick[] =>
   ROWS.map((row) => toPick(row, now)).sort((a, b) => b.placedAt - a.placedAt)

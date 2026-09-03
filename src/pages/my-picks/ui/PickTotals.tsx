@@ -29,17 +29,6 @@ const Total = ({
   </div>
 )
 
-/**
- * Page-local rather than a widget: three read-only figures over
- * `entities/pick/lib/stats`, no interaction, exactly one consumer.
- *
- * It rides in the page header instead of the band below, because three short
- * numbers did not earn a full column beside the chart — and the header had the
- * room going spare.
- *
- * Always all-time. The period control scopes the chart and the ledger and
- * deliberately not these, so every sub-line says which population it counted.
- */
 export const PickTotals = ({
   picks,
   className,

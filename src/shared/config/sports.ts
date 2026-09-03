@@ -1,4 +1,3 @@
-/** In `shared` because both entities need it: `SportEvent.sport` and the pick draft. */
 export type Sport = 'basketball' | 'football' | 'soccer' | 'baseball' | 'hockey'
 
 export const SPORTS: readonly Sport[] = ['basketball', 'football', 'soccer', 'baseball', 'hockey']

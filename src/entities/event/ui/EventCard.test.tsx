@@ -8,19 +8,12 @@ import { EventCard } from './EventCard'
 const NOW = new Date(2026, 8, 3, 12).getTime()
 const celtics = getEvents(NOW)[0]
 
-/** Every case renders the same card; only the assertions differ. */
 const renderCard = (onSelectOutcome = vi.fn()) => {
   render(<EventCard event={celtics} onSelectOutcome={onSelectOutcome} />)
   return onSelectOutcome
 }
 
 describe('EventCard', () => {
-  /**
-   * Six checks that differ only in the string they look for, so they are one
-   * case over a table rather than six near-identical bodies. Monograms stand in
-   * for the teams because they are unique — the short names appear again as
-   * moneyline labels.
-   */
   it.each([
     ['the league and kickoff', 'NBA · 7:30 PM ET'],
     ['the market count', '3 markets'],
@@ -34,7 +27,6 @@ describe('EventCard', () => {
     expect(screen.getByText(text)).toBeInTheDocument()
   })
 
-  /** Away-first ordering carries the side visually; screen readers still need it stated. */
   it('announces which side is home without printing it', () => {
     renderCard()
 

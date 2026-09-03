@@ -18,7 +18,6 @@ const draft: PickDraft = {
   odds: 1.91,
 }
 
-/** Mirrors how the page wires the modal, so typing behaves as it does in the app. */
 const Harness = ({ onConfirm = vi.fn(), onClose = vi.fn() }) => {
   const [stake, setStake] = useState(DEFAULT_STAKE)
   return (

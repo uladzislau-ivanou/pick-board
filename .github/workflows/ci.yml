@@ -18,11 +18,9 @@ jobs:
 
       - run: npm ci
 
-      # Each step is its own line so a failure names itself in the checks list.
       - name: Typecheck
         run: npm run typecheck
 
-      # Includes the FSD boundary rules, so an illegal import fails the build.
       - name: Lint
         run: npm run lint
 

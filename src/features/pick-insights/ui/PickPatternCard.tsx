@@ -9,7 +9,6 @@ import { useAutoAdvance } from '../model/use-auto-advance'
 import { EvidenceStrip } from './EvidenceStrip'
 import { PatternCarouselControls } from './PatternCarouselControls'
 
-/** The field colour carries the tone, so nothing is hidden by being one click away. */
 const FIELDS: Record<InsightTone, string> = {
   good: 'bg-pb-win-field',
   neutral: 'bg-pb-brand-deep',
@@ -31,7 +30,6 @@ export const PickPatternCard = ({
   const insights = getPickInsights(picks, now)
   const auto = useAutoAdvance(insights.length, advance)
 
-  // Wraps in both directions, and survives the list changing length.
   const index = ((requestedIndex % insights.length) + insights.length) % insights.length
   const insight = insights[index]
 
@@ -45,9 +43,6 @@ export const PickPatternCard = ({
         className,
       )}
     >
-      {/* Keyed on the index so the slide replays every time the card turns —
-          on the timer as much as on a click. The controls sit outside it, or
-          the dots would slide along with the copy. */}
       <div key={index} className="flex flex-1 animate-pb-slide flex-col justify-between gap-3.5">
         <div className="flex items-start justify-between gap-3">
           <span className="rounded-sm border border-on-field/40 bg-on-field/18 px-1.75 py-0.75 text-[10px] font-semibold tracking-[.14em] uppercase">

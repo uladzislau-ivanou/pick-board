@@ -7,7 +7,6 @@ import { coldMarkets, ratePercent, sizedMarkets } from './market-stats'
 const RECENT_WINDOW = 5
 const WEEK = 7 * DAY
 
-/** `resolved` must already be newest first. */
 export const buildContext = (resolved: Pick[], now: number): InsightContext => {
   const byMarket = groupByMarket(resolved)
   const lastFive = resolved.slice(0, RECENT_WINDOW)

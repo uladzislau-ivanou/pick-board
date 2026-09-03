@@ -2,7 +2,6 @@ import type { Pick } from '@/entities/pick'
 
 import type { Insight } from '../model/insight'
 
-/** Oldest to newest, so the strip reads left to right like a timeline. */
 const recentResults = (resolved: readonly Pick[], insight: Insight) => {
   const scoped = insight.scope
     ? resolved.filter((pick) => pick.market === insight.scope)

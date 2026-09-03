@@ -13,7 +13,6 @@ const TAB_COPY: Record<PickTab, { title: string; body: string }> = {
   },
 }
 
-/** Three conditions, three copies: an empty tab must not read like a broken filter. */
 export const LedgerEmptyState = ({
   tab,
   dayFilter,

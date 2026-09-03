@@ -10,10 +10,6 @@ import { PickLedger } from '@/widgets/pick-ledger'
 import { PerformanceBand } from './PerformanceBand'
 import { PickTotals } from './PickTotals'
 
-/**
- * The page owns the pick query, so a day selected on the chart and the rows in
- * the ledger below can never disagree — and neither of them imports the other.
- */
 export const MyPicksPage = () => {
   const [now] = useState(() => Date.now())
   const [query, dispatch] = usePickQuery()
@@ -36,7 +32,6 @@ export const MyPicksPage = () => {
         selectedDay={query.dayFilter}
         onSelectDay={(day) => dispatch({ type: 'toggleDay', day })}
       />
-      {/* The band and the ledger read as one box, so their shared edge is drawn once. */}
       <PickLedger
         picks={picks}
         query={query}

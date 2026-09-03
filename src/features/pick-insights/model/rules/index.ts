@@ -9,11 +9,6 @@ import { weekDownRule } from './week-down'
 import { weekUpRule } from './week-up'
 import { winStreakRule } from './win-streak'
 
-/**
- * Evaluation order. Positives come first because a warning that greets you
- * every session stops being read; the carousel keeps every warning one click
- * away instead of hiding it.
- */
 export const GOOD_RULES: readonly InsightRule[] = [
   winStreakRule,
   recentFormRule,

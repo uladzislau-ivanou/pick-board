@@ -5,7 +5,6 @@ import { cn } from '@/shared/lib/cn'
 type Option<T extends string> = {
   value: T
   label: ReactNode
-  /** When the visible label alone would read ambiguously, e.g. "Pending 3". */
   ariaLabel?: string
 }
 
@@ -13,7 +12,6 @@ type SegmentedControlProps<T extends string> = {
   options: readonly Option<T>[]
   value: T
   onChange: (value: T) => void
-  /** Names the group, so screen readers can tell the period control from the tabs. */
   label: string
   className?: string
 }

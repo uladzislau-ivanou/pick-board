@@ -18,7 +18,6 @@ const renderBoard = () => {
 const dayHeader = (label: string) =>
   screen.getByRole('button', { name: new RegExp(`^${label}`, 'i') })
 
-/** Event cards are <article>s; only mounted ones are counted. */
 const visibleCards = () => screen.queryAllByRole('article')
 
 describe('EventBoard day window', () => {
@@ -53,7 +52,6 @@ describe('EventBoard day groups', () => {
   it('renders no cards for a collapsed group', () => {
     renderBoard()
 
-    // Today has 5 events and tomorrow has 5; Saturday's 2 stay unmounted.
     expect(visibleCards()).toHaveLength(10)
   })
 
@@ -88,7 +86,6 @@ describe('EventBoard sport filter', () => {
       'aria-pressed',
       'true',
     )
-    // Basketball's 5 events span 5 days and the window resets to 3, so 3 mount.
     expect(visibleCards()).toHaveLength(3)
     expect(screen.getByRole('button', { name: 'Show 2 more days' })).toBeInTheDocument()
   })
@@ -127,7 +124,6 @@ describe('EventBoard empty state', () => {
     const soccerOnly = events.filter((event) => event.sport === 'soccer')
     render(<EventBoard events={soccerOnly} now={NOW} onSelectOutcome={vi.fn()} />)
 
-    // No basketball chip exists for a soccer-only feed, so there is nothing to empty.
     expect(screen.queryByRole('button', { name: /basketball/i })).not.toBeInTheDocument()
 
     render(<EventBoard events={[]} now={NOW} onSelectOutcome={vi.fn()} />)

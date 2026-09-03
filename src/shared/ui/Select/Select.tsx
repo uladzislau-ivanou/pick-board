@@ -2,7 +2,6 @@ import type { ComponentPropsWithRef } from 'react'
 
 import { cn } from '@/shared/lib/cn'
 
-/** Native on purpose: phones get the system picker and there is no listbox to make accessible. */
 export const Select = ({ className, ...props }: ComponentPropsWithRef<'select'>) => (
   <select
     className={cn(

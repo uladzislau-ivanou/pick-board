@@ -22,7 +22,6 @@ const pending: Pick = {
   placedAt: NOW - 2 * 60 * 60 * 1000,
 }
 
-/** Stands in for the chart, which is the only thing that selects a day. */
 const SELECT_DAY = startOfDay(NOW - DAY)
 
 const Harness = ({ picks }: { picks: readonly Pick[] }) => {
@@ -49,7 +48,6 @@ const renderLedger = (picks: readonly Pick[] = seed) => {
   return user
 }
 
-/** Only ledger rows carry `aria-expanded`, so this counts rows and nothing else. */
 const rows = () => screen.getAllByRole('button').filter((el) => el.hasAttribute('aria-expanded'))
 
 const row = (name: RegExp) => screen.getByRole('button', { name })

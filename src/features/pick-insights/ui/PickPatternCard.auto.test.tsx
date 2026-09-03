@@ -8,7 +8,6 @@ import { PickPatternCard } from './PickPatternCard'
 const NOW = new Date(2026, 8, 3, 12).getTime()
 const seeded = getSeedPicks(NOW)
 
-// fireEvent throughout: user-event awaits internally and deadlocks on fake timers.
 const tick = (ms: number) => act(() => void vi.advanceTimersByTime(ms))
 const counter = () => screen.getByText(/^Pattern \d+ \/ \d+$/).textContent
 
@@ -55,7 +54,6 @@ describe('PickPatternCard auto-advance', () => {
     expect(counter()).toBe('Pattern 1 / 4')
   })
 
-  /** Once someone drives it by hand, moving on its own would fight them. */
   it('stops for good after the user picks a pattern', () => {
     render(<PickPatternCard picks={seeded} now={NOW} />)
 

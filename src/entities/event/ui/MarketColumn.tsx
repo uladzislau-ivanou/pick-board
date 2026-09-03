@@ -1,11 +1,6 @@
 import type { Market, Outcome } from '../model/types'
 import { OutcomeButton } from './OutcomeButton'
 
-/**
- * The column rule is a left border, not a right one: the matchup divider above
- * is the home cell's left border, so a right border here would sit one
- * border-width to its left and the two centre lines would not meet.
- */
 export const MarketColumn = ({
   market,
   onSelectOutcome,

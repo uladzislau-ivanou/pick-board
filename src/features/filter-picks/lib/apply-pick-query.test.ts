@@ -76,8 +76,6 @@ describe('applyPickQuery filtering', () => {
 })
 
 describe('applyPickQuery sorting', () => {
-  // Seeded picks come in same-timestamp pairs, so a stable sort keeps the
-  // fixture's table order inside each day — h9 before h10, not the reverse.
   it('defaults to newest first', () => {
     expect(ids(view(seed).rows)).toEqual(['h9', 'h10', 'h7', 'h8', 'h5', 'h6'])
   })
@@ -86,7 +84,6 @@ describe('applyPickQuery sorting', () => {
     const rows = view(seed, { sort: 'stake', visibleRows: 10 }).rows
 
     expect(rows.map((pick) => pick.stake)).toEqual([40, 30, 30, 25, 25, 25, 20, 20, 20, 15])
-    // h9 and h3 both staked $30; the newer one leads.
     expect(ids(rows).slice(1, 3)).toEqual(['h9', 'h3'])
   })
 

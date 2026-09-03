@@ -13,7 +13,6 @@ export const SportChip = ({
 }: {
   label: string
   count: number
-  /** Absent on the "All" chip, which has no single sport to draw. */
   sport?: Sport
   selected: boolean
   onClick: () => void
@@ -21,8 +20,6 @@ export const SportChip = ({
   <Chip
     selected={selected}
     onClick={onClick}
-    // The label and count are adjacent elements, so the computed name would
-    // otherwise run together as "Basketball5".
     aria-label={`${label}, ${plural(count, 'event')}`}
     className="min-h-8.5 py-1.5"
   >

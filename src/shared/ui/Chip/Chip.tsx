@@ -2,7 +2,6 @@ import type { ComponentPropsWithRef } from 'react'
 
 import { cn } from '@/shared/lib/cn'
 
-/** Callers set the height. */
 type ChipProps = ComponentPropsWithRef<'button'> & {
   selected?: boolean
 }

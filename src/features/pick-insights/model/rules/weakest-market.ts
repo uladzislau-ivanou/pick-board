@@ -17,7 +17,6 @@ export const weakestMarketRule: InsightRule = {
     const rate = ratePercent(byMarket.get(worst) ?? [])
     if (rate > WEAK_ENOUGH) return []
 
-    // A market already reported as cold must not be reported twice.
     if (coldMarkets.some((cold) => cold.market === worst)) return []
 
     const picks = byMarket.get(worst) ?? []

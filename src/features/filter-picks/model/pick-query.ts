@@ -9,12 +9,10 @@ export type MarketFilter = MarketType | 'all'
 export type SortOption = 'recent' | 'stake' | 'payout'
 
 export interface PickQuery {
-  /** `null` while the tab still follows the data: Pending when anything is open, else Settled. */
   tab: PickTab | null
   period: PickPeriod
   market: MarketFilter
   sort: SortOption
-  /** Local midnight of the chart day being drilled into. */
   dayFilter: number | null
   visibleRows: number
 }
@@ -37,12 +35,6 @@ export const initialPickQuery: PickQuery = {
   visibleRows: ROWS_PER_PAGE,
 }
 
-/**
- * One reducer, because every control shares one invariant: anything that
- * changes the list resets the row window, so the user is never left paged into
- * a list whose top they can no longer see. A period change also drops the day
- * filter — the selected day need not exist inside the new window.
- */
 export const pickQueryReducer = (query: PickQuery, action: PickQueryAction): PickQuery => {
   const window = { visibleRows: ROWS_PER_PAGE }
 
