@@ -79,7 +79,7 @@ export const PlacePickModal = ({
           </Button>
           <Button
             variant="primary"
-            className="min-h-[46px] flex-1"
+            className="flex-1"
             disabled={error !== null}
             onClick={() => onConfirm(amount)}
           >

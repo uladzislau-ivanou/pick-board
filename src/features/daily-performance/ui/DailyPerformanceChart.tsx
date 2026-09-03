@@ -2,6 +2,7 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 
 import {
   dailyBuckets,
+  periodLabel,
   periodRange,
   periodTotals,
   type DayBucket,
@@ -19,7 +20,6 @@ import {
   labelEvery,
   netColor,
   netLabel,
-  periodTitle,
 } from '../lib/chart-labels'
 import { ChartLegend } from './ChartLegend'
 import { PeriodTotalsRow } from './PeriodTotalsRow'
@@ -72,7 +72,7 @@ export const DailyPerformanceChart = ({
       className={cn('flex flex-col bg-ground px-4.5 pt-3.5 pb-3', className)}
     >
       <div className="flex flex-wrap items-start justify-between gap-4">
-        <h3 className="text-[14px]">{periodTitle(period, range.spanDays)}</h3>
+        <h3 className="text-[14px]">{periodLabel(period, range.spanDays)}</h3>
         <PeriodTotalsRow totals={periodTotals(buckets)} />
       </div>
 

@@ -1,10 +1,7 @@
-import type { DayBucket, PickPeriod } from '@/entities/pick'
+import type { DayBucket } from '@/entities/pick'
 import { formatDayWithDate } from '@/shared/lib/date'
 import { formatMoney, formatSigned } from '@/shared/lib/money'
 import { plural } from '@/shared/lib/text'
-
-export const periodTitle = (period: PickPeriod, spanDays: number) =>
-  period === 'all' ? `All time · ${plural(spanDays, 'day')}` : `Last ${plural(spanDays, 'day')}`
 
 /** The figures a column carries as text, for hover and for screen readers alike. */
 export const dayFigures = (bucket: DayBucket) =>

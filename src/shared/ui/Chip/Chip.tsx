@@ -2,7 +2,7 @@ import type { ComponentPropsWithRef } from 'react'
 
 import { cn } from '@/shared/lib/cn'
 
-/** Sport filters, quick stakes and the chart's day filter. Callers set the height. */
+/** Sport filters and quick stakes. Callers set the height. */
 type ChipProps = ComponentPropsWithRef<'button'> & {
   selected?: boolean
 }

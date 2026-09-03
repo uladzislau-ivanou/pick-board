@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { DAY, startOfDay } from '@/shared/lib/date'
 
 import type { Pick } from '../model/types'
-import { isInPeriod, periodRange } from './period'
+import { isInPeriod, periodLabel, periodRange } from './period'
 
 const NOW = new Date(2026, 8, 3, 12).getTime()
 const TODAY = startOfDay(NOW)
@@ -61,5 +61,17 @@ describe('isInPeriod', () => {
   it('compares whole days, not exact times', () => {
     const lateOnTheFirstDay = { ...placedDaysAgo(6), placedAt: TODAY - 6 * DAY + 23 * 3600_000 }
     expect(isInPeriod(lateOnTheFirstDay, range)).toBe(true)
+  })
+})
+
+describe('periodLabel', () => {
+  it('names the fixed windows', () => {
+    expect(periodLabel('7d', 7)).toBe('Last 7 days')
+    expect(periodLabel('30d', 30)).toBe('Last 30 days')
+  })
+
+  it('reports the span "all" resolved to, rather than claiming more', () => {
+    expect(periodLabel('all', 7)).toBe('All time · 7 days')
+    expect(periodLabel('all', 1)).toBe('All time · 1 day')
   })
 })

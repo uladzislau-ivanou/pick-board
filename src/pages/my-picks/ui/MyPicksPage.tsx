@@ -1,43 +1,54 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 
-import { usePicks } from '@/entities/pick'
-import { DailyPerformanceChart } from '@/features/daily-performance'
-import { PickPatternCard } from '@/features/pick-insights'
+import { periodLabel, periodRange, usePicks } from '@/entities/pick'
+import { usePickQuery } from '@/features/filter-picks'
 import { ROUTES } from '@/shared/config/routes'
 import { Button } from '@/shared/ui/Button'
 import { PageHeader } from '@/shared/ui/PageHeader'
+import { PickLedger } from '@/widgets/pick-ledger'
 
+import { PerformanceBand } from './PerformanceBand'
+
+/**
+ * The page owns the pick query, so a day selected on the chart and the rows in
+ * the ledger below can never disagree — and neither of them imports the other.
+ */
 export const MyPicksPage = () => {
   const [now] = useState(() => Date.now())
-  // Moves into features/filter-picks in Step 10; local until then.
-  const [selectedDay, setSelectedDay] = useState<number | null>(null)
+  const [query, dispatch] = usePickQuery()
   const { picks } = usePicks()
   const navigate = useNavigate()
+  const browseEvents = () => navigate(ROUTES.events)
+  const range = periodRange(query.period, picks, now)
 
   return (
     <>
       <PageHeader
-        kicker="Account · Last 7 days"
+        kicker={`Account · ${periodLabel(query.period, range.spanDays)}`}
         title="My Picks"
         aside={
-          <Button variant="secondary" onClick={() => navigate(ROUTES.events)}>
+          <Button variant="secondary" onClick={browseEvents}>
             Back to board
           </Button>
         }
       />
-      <div className="mt-5 flex flex-wrap items-stretch border border-divider bg-neutral-100">
-        <PickPatternCard picks={picks} now={now} className="grow basis-82.5" />
-        <DailyPerformanceChart
-          picks={picks}
-          period="7d"
-          now={now}
-          selectedDay={selectedDay}
-          onSelectDay={(day) => setSelectedDay(day === selectedDay ? null : day)}
-          className="grow-[2] basis-95 border-l border-divider"
-        />
-      </div>
-      <p className="pt-6 text-[13px] text-ink/50">Totals and ledger: Steps 10 and 11.</p>
+      <PerformanceBand
+        picks={picks}
+        now={now}
+        period={query.period}
+        selectedDay={query.dayFilter}
+        onSelectDay={(day) => dispatch({ type: 'toggleDay', day })}
+      />
+      {/* The band and the ledger read as one box, so their shared edge is drawn once. */}
+      <PickLedger
+        picks={picks}
+        query={query}
+        dispatch={dispatch}
+        now={now}
+        onBrowseEvents={browseEvents}
+        className="border-t-0"
+      />
     </>
   )
 }

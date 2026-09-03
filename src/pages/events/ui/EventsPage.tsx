@@ -5,6 +5,7 @@ import { getEvents, groupByDay, matchupLabel } from '@/entities/event'
 import { usePicks } from '@/entities/pick'
 import { PlacePickModal, usePlacePick } from '@/features/place-pick'
 import { ROUTES } from '@/shared/config/routes'
+import { formatOdds } from '@/shared/lib/odds'
 import { plural } from '@/shared/lib/text'
 import { PageHeader } from '@/shared/ui/PageHeader'
 import { useToast } from '@/shared/ui/Toast'
@@ -33,7 +34,7 @@ export const EventsPage = () => {
     })
     placePick.close()
     show({
-      message: `Pick placed — ${draft.selection} at ${draft.odds.toFixed(2)}`,
+      message: `Pick placed — ${draft.selection} at ${formatOdds(draft.odds)}`,
       actionLabel: 'View',
       onAction: () => navigate(ROUTES.myPicks),
     })

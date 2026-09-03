@@ -1,5 +1,6 @@
-import { clamp } from '@/shared/lib/number'
 import { DAY, startOfDay } from '@/shared/lib/date'
+import { clamp } from '@/shared/lib/number'
+import { plural } from '@/shared/lib/text'
 
 import type { Pick } from '../model/types'
 
@@ -39,3 +40,11 @@ export const periodRange = (
 
 export const isInPeriod = (pick: Pick, range: PeriodRange) =>
   startOfDay(pick.placedAt) >= range.startDay
+
+/**
+ * How a period describes itself: the chart heading and the page kicker have to
+ * agree, so neither owns the wording. "All" reports the span it resolved to,
+ * because "all time" over four days would overstate the data.
+ */
+export const periodLabel = (period: PickPeriod, spanDays: number) =>
+  period === 'all' ? `All time · ${plural(spanDays, 'day')}` : `Last ${plural(spanDays, 'day')}`

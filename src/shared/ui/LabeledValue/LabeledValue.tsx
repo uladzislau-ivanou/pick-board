@@ -10,7 +10,11 @@ type LabeledValueProps = {
   valueClassName?: string
 }
 
-/** Summary totals, chart totals, ledger metric columns and expanded pick detail. */
+/**
+ * Summary totals, chart totals and the ledger's metric columns. Spans rather
+ * than divs, because those columns sit inside the full-width row `<button>`,
+ * which may only contain phrasing content.
+ */
 export const LabeledValue = ({
   label,
   value,
@@ -18,9 +22,13 @@ export const LabeledValue = ({
   className,
   valueClassName,
 }: LabeledValueProps) => (
-  <div className={className}>
-    <div className="text-[10px] font-semibold tracking-[.12em] text-ink/55 uppercase">{label}</div>
-    <div className={cn('type-heading text-[14px] tracking-[-0.02em]', valueClassName)}>{value}</div>
-    {note ? <div className="mt-0.5 text-[11px] text-ink/55">{note}</div> : null}
-  </div>
+  <span className={cn('block', className)}>
+    <span className="block text-[10px] font-semibold tracking-[.12em] text-ink/55 uppercase">
+      {label}
+    </span>
+    <span className={cn('block type-heading text-[14px] tracking-[-0.02em]', valueClassName)}>
+      {value}
+    </span>
+    {note ? <span className="mt-0.5 block text-[11px] text-ink/55">{note}</span> : null}
+  </span>
 )
