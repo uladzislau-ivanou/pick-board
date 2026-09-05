@@ -32,6 +32,7 @@ export const EventBoard = ({
             <DayGroup
               key={group.key}
               group={group}
+              now={now}
               open={board.isDayOpen(group.key, group.diff)}
               onToggle={() => board.toggleDay(group.key, group.diff)}
               onSelectOutcome={onSelectOutcome}

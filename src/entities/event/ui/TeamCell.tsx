@@ -1,43 +1,29 @@
-import type { CSSProperties } from 'react'
-
 import { cn } from '@/shared/lib/cn'
 
-import { team } from '../lib/team'
+import type { GridRow } from '../lib/market-grid'
 import { CrestBadge } from './CrestBadge'
 
-export const TeamCell = ({
-  name,
-  side,
-  className,
-}: {
-  name: string
-  side: 'away' | 'home'
-  className?: string
-}) => {
-  const { short, abbr, color, color2 } = team(name)
-  const isHome = side === 'home'
+export const TeamCell = ({ row }: { row: GridRow }) => {
+  const { abbr, color, color2 } = row
 
   return (
-    <div
-      style={
-        {
-          '--crest-color': color,
-          '--crest-color-2': color2,
-          '--crest-angle': isHome ? '270deg' : '90deg',
-          '--crest-flash-x': isHome ? '-3px' : '3px',
-        } as CSSProperties
-      }
-      className={cn(
-        'flex min-w-0 items-center gap-matchup-gap crest-field px-matchup-x py-3.5 crest-flash',
-        isHome && 'flex-row-reverse text-right',
-        className,
+    <div className="flex min-w-0 items-center gap-2.5">
+      {abbr === undefined || color === undefined ? (
+        <span aria-hidden className="size-crest shrink-0" />
+      ) : (
+        <CrestBadge abbr={abbr} color={color} color2={color2 ?? color} />
       )}
-    >
-      <CrestBadge abbr={abbr} />
-      <div className="min-w-0">
-        <div className="truncate type-heading text-team tracking-[-0.02em]">{short}</div>
-        <span className="sr-only">{side} team</span>
-      </div>
+      <span
+        className={cn(
+          'truncate',
+          abbr === undefined
+            ? 'text-[12.5px] font-medium text-ink/65'
+            : 'type-heading text-team tracking-[-0.02em]',
+        )}
+      >
+        {row.name}
+      </span>
+      {row.side === undefined ? null : <span className="sr-only">{row.side} team</span>}
     </div>
   )
 }

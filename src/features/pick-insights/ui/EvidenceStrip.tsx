@@ -1,4 +1,5 @@
 import type { Pick } from '@/entities/pick'
+import { cn } from '@/shared/lib/cn'
 
 import type { Insight } from '../model/insight'
 
@@ -21,19 +22,18 @@ export const EvidenceStrip = ({
   if (results.length === 0) return null
 
   return (
-    <div>
-      <p className="text-[10px] font-semibold tracking-[.12em] whitespace-nowrap uppercase opacity-70">
+    <div className="flex shrink-0 items-center gap-2">
+      <span className="sr-only">
         Last {results.length} {insight.scope ?? 'resolved'}
-      </p>
-      <ul className="mt-1.5 flex gap-1">
+      </span>
+      <ul className="flex gap-1">
         {results.map((pick) => (
           <li
             key={pick.id}
-            className={
-              pick.status === 'Won'
-                ? 'flex size-5.5 items-center justify-center rounded-sm border border-on-field bg-on-field type-heading text-[11px] text-pb-brand-deep'
-                : 'flex size-5.5 items-center justify-center rounded-sm border border-on-field bg-on-field/22 type-heading text-[11px]'
-            }
+            className={cn(
+              'flex size-5 items-center justify-center rounded-sm type-heading text-[10px] text-on-field',
+              pick.status === 'Won' ? 'bg-pb-win-field' : 'bg-pb-loss-field',
+            )}
           >
             <span className="sr-only">{pick.status}</span>
             <span aria-hidden>{pick.status === 'Won' ? 'W' : 'L'}</span>

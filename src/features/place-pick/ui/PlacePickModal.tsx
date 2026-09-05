@@ -46,7 +46,7 @@ export const PlacePickModal = ({
           <h3 id={TITLE_ID} className="text-[20px]">
             {draft.selection}
           </h3>
-          <p className="text-[12.5px] text-ink/60">
+          <p className="text-[12.5px] text-ink/70">
             {draft.market} · {draft.event}
           </p>
         </div>
@@ -65,7 +65,7 @@ export const PlacePickModal = ({
           describedBy={ERROR_ID}
         />
         <QuickStakes value={stake} onSelect={onStakeChange} />
-        <p id={ERROR_ID} aria-live="polite" className="min-h-4 text-[11.5px] text-accent-700">
+        <p id={ERROR_ID} aria-live="polite" className="min-h-4 text-[11.5px] text-accent-ink">
           {error}
         </p>
         <PayoutBlock

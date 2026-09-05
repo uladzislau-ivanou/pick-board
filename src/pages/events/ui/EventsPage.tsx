@@ -1,23 +1,26 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 
-import { getEvents, groupByDay, matchupLabel } from '@/entities/event'
+import { getEvents, groupByDay, matchupLabel, openEvents } from '@/entities/event'
 import { usePicks } from '@/entities/pick'
 import { PlacePickModal, usePlacePick } from '@/features/place-pick'
 import { ROUTES } from '@/shared/config/routes'
-import { formatOdds } from '@/shared/lib/odds'
+import { useFormatOdds } from '@/shared/lib/odds'
 import { plural } from '@/shared/lib/text'
 import { PageHeader } from '@/shared/ui/PageHeader'
 import { useToast } from '@/shared/ui/Toast'
 import { EventBoard } from '@/widgets/event-board'
 
+import { BoardSummary } from './BoardSummary'
+
 export const EventsPage = () => {
   const [now] = useState(() => Date.now())
-  const [events] = useState(() => getEvents(Date.now()))
-  const { addPick } = usePicks()
+  const [events] = useState(() => openEvents(getEvents(now), now))
+  const { picks, addPick } = usePicks()
   const { show } = useToast()
   const navigate = useNavigate()
   const placePick = usePlacePick()
+  const formatOdds = useFormatOdds()
 
   const dayCount = groupByDay(events, now).length
   const { draft } = placePick
@@ -45,6 +48,7 @@ export const EventsPage = () => {
       <PageHeader
         kicker={`Live board · ${plural(events.length, 'event')} · next ${plural(dayCount, 'day')}`}
         title="Events"
+        aside={<BoardSummary events={events} picks={picks} now={now} />}
       />
       <EventBoard
         events={events}

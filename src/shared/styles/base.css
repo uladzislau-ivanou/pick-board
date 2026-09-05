@@ -27,7 +27,7 @@
 
   :focus-visible {
     outline: 2px solid var(--color-pb-brand);
-    outline-offset: 2px;
+    outline-offset: -2px;
   }
 
   ::selection {
@@ -48,24 +48,6 @@
 @utility type-heading {
   font-family: var(--font-heading);
   font-weight: var(--font-heading-weight);
-}
-
-@utility crest-field {
-  background-image: linear-gradient(
-    var(--crest-angle, 90deg),
-    color-mix(in srgb, var(--crest-color, var(--color-text)) var(--crest-tint), var(--color-bg)) 0%,
-    color-mix(
-        in srgb,
-        var(--crest-color-2, var(--crest-color, var(--color-text))) var(--crest-tint-far),
-        var(--color-bg)
-      )
-      58%,
-    var(--color-bg) 94%
-  );
-}
-
-@utility crest-flash {
-  box-shadow: inset var(--crest-flash-x, 3px) 0 0 0 var(--crest-color, var(--color-text));
 }
 
 @utility crest-split {

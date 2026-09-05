@@ -25,6 +25,6 @@ export const SportChip = ({
   >
     {sport ? <SportIcon sport={sport} size={15} className="shrink-0 opacity-80" /> : null}
     {label}
-    <span className={cn('font-medium', selected ? 'opacity-70' : 'text-ink/55')}>{count}</span>
+    <span className={cn('font-medium', selected ? 'opacity-70' : 'text-ink/65')}>{count}</span>
   </Chip>
 )

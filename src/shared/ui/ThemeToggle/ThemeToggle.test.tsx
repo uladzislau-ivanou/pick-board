@@ -37,7 +37,7 @@ describe('ThemeToggle', () => {
     const user = bootWith('light')
 
     await user.click(screen.getByRole('button'))
-    expect(window.localStorage.getItem('pickboard.theme.v1')).toBe('dark')
+    expect(window.localStorage.getItem('pickboard.theme')).toBe('dark')
   })
 
   it('reads its initial state from the DOM, not from a default', () => {

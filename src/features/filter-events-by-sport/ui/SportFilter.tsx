@@ -18,7 +18,7 @@ export const SportFilter = ({
 
   return (
     <div className="flex flex-wrap items-center gap-2 p-3.5">
-      <span className="mr-1 text-[10px] font-semibold tracking-[.14em] text-ink/45 uppercase">
+      <span className="mr-1 text-[10px] font-semibold tracking-[.14em] text-ink/65 uppercase">
         Sport
       </span>
       <SportChip

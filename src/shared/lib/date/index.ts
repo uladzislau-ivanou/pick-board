@@ -1,5 +1,7 @@
 export {
   DAY,
+  HOUR,
+  MINUTE,
   daysBetween,
   formatDateTime,
   formatDayWithDate,

@@ -9,10 +9,16 @@ import { useAutoAdvance } from '../model/use-auto-advance'
 import { EvidenceStrip } from './EvidenceStrip'
 import { PatternCarouselControls } from './PatternCarouselControls'
 
-const FIELDS: Record<InsightTone, string> = {
-  good: 'bg-pb-win-field',
-  neutral: 'bg-pb-brand-deep',
-  bad: 'bg-pb-loss-field',
+const RULES: Record<InsightTone, string> = {
+  good: 'bg-pb-win',
+  neutral: 'bg-pb-brand',
+  bad: 'bg-pb-loss',
+}
+
+const KICKERS: Record<InsightTone, string> = {
+  good: 'border-pb-win/45 text-pb-win',
+  neutral: 'border-pb-brand/45 text-pb-brand',
+  bad: 'border-pb-loss/45 text-pb-loss',
 }
 
 export const PickPatternCard = ({
@@ -38,30 +44,29 @@ export const PickPatternCard = ({
       aria-label="Pattern"
       {...auto.pauseHandlers}
       className={cn(
-        'flex min-h-66 flex-col justify-between gap-3.5 overflow-hidden px-4.5 pt-4 pb-3.75 text-on-field',
-        FIELDS[insight.tone],
+        'flex flex-wrap items-center gap-x-5 gap-y-3 border-b border-divider bg-neutral-200 px-4.5 py-3',
         className,
       )}
     >
-      <div key={index} className="flex flex-1 animate-pb-slide flex-col justify-between gap-3.5">
-        <div className="flex items-start justify-between gap-3">
-          <span className="rounded-sm border border-on-field/40 bg-on-field/18 px-1.75 py-0.75 text-[10px] font-semibold tracking-[.14em] uppercase">
-            {insight.kicker}
-          </span>
-          {insights.length > 1 ? (
-            <span className="text-[10px] whitespace-nowrap opacity-65">
-              Pattern {index + 1} / {insights.length}
-            </span>
-          ) : null}
-        </div>
+      <span aria-hidden className={cn('h-9 w-[3px] shrink-0 rounded-full', RULES[insight.tone])} />
 
-        <div>
-          <h2 className="text-[21px]/[1.15] tracking-[-0.02em] text-pretty">{insight.headline}</h2>
-          <p className="mt-2 text-[12.5px]/[1.5] opacity-85">{insight.detail}</p>
-        </div>
-
-        <EvidenceStrip resolved={resolvedPicks(picks)} insight={insight} />
+      <div
+        key={index}
+        className="flex min-w-50 flex-1 animate-pb-in-fast flex-wrap items-baseline gap-x-3 gap-y-1"
+      >
+        <span
+          className={cn(
+            'rounded-sm border px-1.75 py-0.75 text-[10px] font-semibold tracking-[.12em] uppercase',
+            KICKERS[insight.tone],
+          )}
+        >
+          {insight.kicker}
+        </span>
+        <h2 className="text-[15.5px] tracking-[-0.01em] text-pretty">{insight.headline}</h2>
+        <p className="text-[12.5px] text-pretty text-ink/70">{insight.detail}</p>
       </div>
+
+      <EvidenceStrip resolved={resolvedPicks(picks)} insight={insight} />
 
       {insights.length > 1 ? (
         <PatternCarouselControls

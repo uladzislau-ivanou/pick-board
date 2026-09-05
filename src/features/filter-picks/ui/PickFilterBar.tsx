@@ -7,7 +7,6 @@ import { SegmentedControl } from '@/shared/ui/SegmentedControl'
 
 import type { MarketFilter, PickQuery, PickQueryAction, SortOption } from '../model/pick-query'
 import { DayFilterChip } from './DayFilterChip'
-import { SortNote } from './SortNote'
 
 const PERIODS: readonly { value: PickPeriod; label: string }[] = [
   { value: '7d', label: '7 days' },
@@ -67,7 +66,5 @@ export const PickFilterBar = ({
     {query.dayFilter === null ? null : (
       <DayFilterChip day={query.dayFilter} onClear={() => dispatch({ type: 'clearDay' })} />
     )}
-
-    <SortNote sort={query.sort} className="ml-auto" />
   </div>
 )

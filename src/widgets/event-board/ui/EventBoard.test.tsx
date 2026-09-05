@@ -40,6 +40,23 @@ describe('EventBoard day window', () => {
   })
 })
 
+describe('EventBoard columns', () => {
+  it('heads each open day with the same three market columns, so prices line up', () => {
+    renderBoard()
+
+    for (const head of ['Moneyline', 'Spread', 'Total']) {
+      expect(screen.getAllByText(head)).toHaveLength(2)
+    }
+  })
+
+  it('leaves a column empty rather than reflowing an event that lacks that market', () => {
+    renderBoard()
+
+    expect(screen.queryByRole('button', { name: /^Oilers [+-]/ })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Oilers at 2.10' })).toBeInTheDocument()
+  })
+})
+
 describe('EventBoard day groups', () => {
   it('opens today and tomorrow, and leaves later days collapsed', () => {
     renderBoard()

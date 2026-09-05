@@ -44,11 +44,11 @@ describe('PlacePickModal', () => {
     expect(stakeInput()).toHaveValue('10')
   })
 
-  it('computes the payout and profit from the opening stake', () => {
+  it('splits the return into what is won and what comes back', () => {
     render(<Harness />)
 
     expect(screen.getByText('$19.10')).toBeInTheDocument()
-    expect(screen.getByText('Returns $9.10 profit')).toBeInTheDocument()
+    expect(screen.getByText('$9.10')).toBeInTheDocument()
   })
 
   it('recomputes the payout live as the stake is typed', async () => {
@@ -59,7 +59,7 @@ describe('PlacePickModal', () => {
     await user.type(stakeInput(), '25')
 
     expect(screen.getByText('$47.75')).toBeInTheDocument()
-    expect(screen.getByText('Returns $22.75 profit')).toBeInTheDocument()
+    expect(screen.getByText('$22.75')).toBeInTheDocument()
   })
 
   it('ignores characters that are not part of an amount', async () => {

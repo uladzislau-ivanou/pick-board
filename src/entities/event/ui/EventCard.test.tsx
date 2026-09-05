@@ -6,25 +6,32 @@ import { getEvents } from '../api/event-fixtures'
 import { EventCard } from './EventCard'
 
 const NOW = new Date(2026, 8, 3, 12).getTime()
-const celtics = getEvents(NOW)[0]
+const events = getEvents(NOW)
+const celtics = events[0]
+const soccer = events.find((event) => event.sport === 'soccer')!
 
-const renderCard = (onSelectOutcome = vi.fn()) => {
-  render(<EventCard event={celtics} onSelectOutcome={onSelectOutcome} />)
+const renderCard = (onSelectOutcome = vi.fn(), event = celtics, now = NOW) => {
+  render(<EventCard event={event} now={now} onSelectOutcome={onSelectOutcome} />)
   return onSelectOutcome
 }
 
 describe('EventCard', () => {
   it.each([
-    ['the league and kickoff', 'NBA · 7:30 PM ET'],
-    ['the market count', '3 markets'],
+    ['the league', 'NBA'],
+    ['the kickoff time', '7:30 PM ET'],
     ['the away monogram', 'DEN'],
     ['the home monogram', 'BOS'],
-    ['a market by its display name', 'Spread'],
-    ['an Over/Under market by its display name', 'Total points'],
   ])('renders %s', (_case, text) => {
     renderCard()
 
     expect(screen.getByText(text)).toBeInTheDocument()
+  })
+
+  it('names each team once, as a row, rather than in every price', () => {
+    renderCard()
+
+    expect(screen.getAllByText('Celtics')).toHaveLength(1)
+    expect(screen.getAllByText('Nuggets')).toHaveLength(1)
   })
 
   it('announces which side is home without printing it', () => {
@@ -40,6 +47,43 @@ describe('EventCard', () => {
     expect(screen.getAllByRole('button')).toHaveLength(6)
     expect(screen.getByRole('button', { name: 'Celtics at 1.72' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Nuggets +3.5 at 1.95' })).toBeInTheDocument()
+  })
+
+  it('shows the handicap and the total as the line, with the price under it', () => {
+    renderCard()
+
+    expect(screen.getByRole('button', { name: 'Celtics -3.5 at 1.91' })).toHaveTextContent(
+      '−3.51.91',
+    )
+    expect(screen.getByRole('button', { name: 'Over 224.5 at 1.88' })).toHaveTextContent(
+      'O 224.51.88',
+    )
+  })
+
+  it('gives a three-way market its own draw row', () => {
+    renderCard(vi.fn(), soccer)
+
+    expect(screen.getByText('Draw')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Draw at 3.45' })).toBeInTheDocument()
+  })
+
+  it('marks an event that has already kicked off as live', () => {
+    renderCard(vi.fn(), celtics, celtics.kickoffAt + 60_000)
+
+    expect(screen.getByText('Live')).toBeInTheDocument()
+    expect(screen.queryByText('7:30 PM ET')).not.toBeInTheDocument()
+  })
+
+  it('shows the kickoff time until the hour before, then counts down', () => {
+    renderCard(vi.fn(), celtics, celtics.kickoffAt - 3 * 60 * 60_000)
+
+    expect(screen.getByText('7:30 PM ET')).toBeInTheDocument()
+  })
+
+  it('counts down inside the last hour before kickoff', () => {
+    renderCard(vi.fn(), celtics, celtics.kickoffAt - 12 * 60_000)
+
+    expect(screen.getByText('Starts in 12m')).toBeInTheDocument()
   })
 
   it('reports the event, market and outcome behind a tapped price', async () => {

@@ -1,6 +1,6 @@
 import type { DayGroup } from '@/entities/event'
 import { plural } from '@/shared/lib/text'
-import { DisclosureSquare } from '@/shared/ui/DisclosureSquare'
+import { Disclosure } from '@/shared/ui/Disclosure'
 
 export const DayGroupHeader = ({
   group,
@@ -22,10 +22,10 @@ export const DayGroupHeader = ({
   >
     <span className="flex flex-wrap items-baseline gap-3">
       <span className="type-heading text-[19px] uppercase">{group.label}</span>
-      <span className="text-[11px] font-semibold tracking-[.12em] whitespace-nowrap text-ink/50 uppercase">
+      <span className="text-[11px] font-semibold tracking-[.12em] whitespace-nowrap text-ink/65 uppercase">
         {group.dateLabel} · {plural(group.events.length, 'event')}
       </span>
     </span>
-    <DisclosureSquare open={open} />
+    <Disclosure open={open} />
   </button>
 )

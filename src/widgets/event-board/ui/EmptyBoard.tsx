@@ -16,7 +16,7 @@ export const EmptyBoard = ({
           ? 'No events scheduled.'
           : `No ${SPORT_LABELS[sport].toLowerCase()} events scheduled.`}
       </h4>
-      <p className="mt-2 text-[13.5px]/[1.5] text-ink/60">
+      <p className="mt-2 text-[13.5px]/[1.5] text-ink/70">
         Nothing in the next seven days for this filter. Clear it to see the whole board.
       </p>
       <Button variant="primary" className="mt-4" onClick={onClearFilter}>

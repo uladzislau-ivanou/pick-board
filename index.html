@@ -16,7 +16,7 @@
     <div id="root"></div>
     <script>
       try {
-        var stored = localStorage.getItem('pickboard.theme.v1')
+        var stored = localStorage.getItem('pickboard.theme')
         var dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
         document.documentElement.dataset.theme = dark ? 'dark' : 'light'
       } catch {

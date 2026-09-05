@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import type { SportFilterValue } from '@/features/filter-events-by-sport'
-import { COLLAPSE_LATER_DAYS, DAYS_PER_PAGE } from '@/shared/config/app'
+import { DAYS_PER_PAGE } from '@/shared/config/app'
 
 export const useEventBoard = () => {
   const [sport, setSport] = useState<SportFilterValue>('all')
@@ -9,7 +9,7 @@ export const useEventBoard = () => {
   const [visibleDays, setVisibleDays] = useState(DAYS_PER_PAGE)
 
   const isDayOpen = (key: number, diff: number) =>
-    openOverrides[key] ?? (sport !== 'all' || !COLLAPSE_LATER_DAYS || diff <= 1)
+    openOverrides[key] ?? (sport !== 'all' || diff <= 1)
 
   return {
     sport,

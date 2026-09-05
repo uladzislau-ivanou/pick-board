@@ -4,7 +4,7 @@ import { SegmentedControl } from '@/shared/ui/SegmentedControl'
 import type { PickTab } from '../model/pick-query'
 
 const Count = ({ children }: { children: number }) => (
-  <span className="ml-1.5 opacity-55">{children}</span>
+  <span className="ml-1.5 opacity-75">{children}</span>
 )
 
 export const PickTabs = ({
@@ -27,11 +27,11 @@ export const PickTabs = ({
         value: 'pending',
         label: (
           <>
-            Pending
+            Open
             <Count>{pendingCount}</Count>
           </>
         ),
-        ariaLabel: `${plural(pendingCount, 'pending pick')} in this period`,
+        ariaLabel: `${plural(pendingCount, 'open pick')} in this period`,
       },
       {
         value: 'settled',

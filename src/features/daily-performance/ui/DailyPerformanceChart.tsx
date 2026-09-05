@@ -1,4 +1,12 @@
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
+import {
+  Bar,
+  ComposedChart,
+  Line,
+  ReferenceLine,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from 'recharts'
 
 import {
   dailyBuckets,
@@ -13,14 +21,8 @@ import { cn } from '@/shared/lib/cn'
 import { formatWeekdayShort } from '@/shared/lib/date'
 import { formatMoney } from '@/shared/lib/money'
 
-import {
-  dayActionHint,
-  dayFigures,
-  isDense,
-  labelEvery,
-  netColor,
-  netLabel,
-} from '../lib/chart-labels'
+import { dayActionHint, dayFigures, isDense, labelEvery } from '../lib/chart-labels'
+import { netDomain, withCumulativeNet } from '../lib/cumulative-net'
 import { ChartLegend } from './ChartLegend'
 import { PeriodTotalsRow } from './PeriodTotalsRow'
 
@@ -81,6 +83,7 @@ export const DailyPerformanceChart = ({
 }) => {
   const range = periodRange(period, picks, now)
   const buckets = dailyBuckets(picks, range)
+  const points = withCumulativeNet(buckets)
   const dense = isDense(range.spanDays)
   const every = labelEvery(range.spanDays)
 
@@ -102,20 +105,7 @@ export const DailyPerformanceChart = ({
 
       <ChartLegend />
 
-      {dense ? null : (
-        <div aria-hidden className="flex">
-          {buckets.map((bucket) => (
-            <span
-              key={bucket.day}
-              className={cn('flex-1 text-center type-heading text-[10px]', netColor(bucket))}
-            >
-              {netLabel(bucket)}
-            </span>
-          ))}
-        </div>
-      )}
-
-      <div className="relative h-33">
+      <div className="relative h-38">
         <div aria-hidden className="absolute inset-0 flex">
           {buckets.map((bucket) => (
             <span
@@ -129,16 +119,18 @@ export const DailyPerformanceChart = ({
         </div>
 
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={[...buckets]}
-            margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+          <ComposedChart
+            data={points}
+            margin={{ top: 6, right: 0, bottom: 0, left: 0 }}
             barCategoryGap="14%"
           >
             <XAxis dataKey="day" hide />
-            <YAxis hide domain={[0, 'dataMax']} />
+            <YAxis yAxisId="stake" hide domain={[0, 'dataMax']} />
+            <YAxis yAxisId="net" hide domain={netDomain(points)} />
             {SERIES.map((series) => (
               <Bar
                 key={series.key}
+                yAxisId="stake"
                 dataKey={series.key}
                 stackId="stake"
                 fill={series.color}
@@ -146,7 +138,23 @@ export const DailyPerformanceChart = ({
                 isAnimationActive={false}
               />
             ))}
-          </BarChart>
+            <ReferenceLine
+              yAxisId="net"
+              y={0}
+              stroke="var(--color-divider)"
+              strokeDasharray="2 3"
+            />
+            <Line
+              yAxisId="net"
+              type="monotone"
+              dataKey="cumulativeNet"
+              stroke="var(--color-ink)"
+              strokeWidth={2}
+              dot={{ r: 2, fill: 'var(--color-ink)', stroke: 'none' }}
+              activeDot={false}
+              isAnimationActive={false}
+            />
+          </ComposedChart>
         </ResponsiveContainer>
 
         <div className="absolute inset-0 flex">
@@ -165,7 +173,7 @@ export const DailyPerformanceChart = ({
                 }
                 title={dayFigures(bucket)}
                 onClick={() => onSelectDay(bucket.day)}
-                className="flex-1 disabled:cursor-default"
+                className="flex-1 rounded-t-sm transition-colors not-disabled:hover:bg-ink/6 disabled:cursor-default"
               />
             )
           })}
@@ -182,11 +190,11 @@ export const DailyPerformanceChart = ({
                 'bg-pb-brand-tint shadow-[inset_0_-3px_0_0_var(--color-pb-brand)]',
             )}
           >
-            <span className="block text-[10px] font-semibold tracking-[.1em] text-ink/50 uppercase">
+            <span className="block text-[10px] font-semibold tracking-[.1em] text-ink/65 uppercase">
               {dayLabel(bucket, index)}
             </span>
             {dense ? null : (
-              <span className="block text-[10px] text-ink/45">
+              <span className="block text-[10px] text-ink/65">
                 {bucket.staked > 0 ? formatMoney(bucket.staked) : '—'}
               </span>
             )}

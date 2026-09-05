@@ -1,6 +1,6 @@
 import { formatDateTime } from '@/shared/lib/date'
 import { formatMoney } from '@/shared/lib/money'
-import { formatOdds } from '@/shared/lib/odds'
+import { ODDS_FORMAT_LABELS, useFormatOdds, useOddsFormat } from '@/shared/lib/odds'
 
 import { calculatePayout } from '../lib/calculate-payout'
 import type { Pick, PickStatus } from '../model/types'
@@ -14,12 +14,14 @@ const COUNTING_NOTES: Record<PickStatus, string> = {
 
 const DetailItem = ({ label, value }: { label: string; value: string }) => (
   <div>
-    <dt className="text-[10px] font-semibold tracking-[.12em] text-ink/55 uppercase">{label}</dt>
+    <dt className="text-[10px] font-semibold tracking-[.12em] text-ink/65 uppercase">{label}</dt>
     <dd className="text-[13px] font-medium">{value}</dd>
   </div>
 )
 
 export const PickDetails = ({ id, pick }: { id: string; pick: Pick }) => {
+  const formatOdds = useFormatOdds()
+  const { format } = useOddsFormat()
   const pending = pick.status === 'Pending'
   const odds = formatOdds(pick.odds)
 
@@ -29,7 +31,10 @@ export const PickDetails = ({ id, pick }: { id: string; pick: Pick }) => {
       className="animate-pb-in-fast border-t border-divider bg-neutral-200 px-5 pt-4 pb-4.5"
     >
       <dl className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-x-6 gap-y-4">
-        <DetailItem label="Odds at placement" value={`${odds} decimal`} />
+        <DetailItem
+          label="Odds at placement"
+          value={`${odds} ${ODDS_FORMAT_LABELS[format].toLowerCase()}`}
+        />
         <DetailItem label="Placed" value={formatDateTime(pick.placedAt)} />
         <DetailItem
           label={pending ? 'Settles' : 'Settled'}
@@ -40,10 +45,10 @@ export const PickDetails = ({ id, pick }: { id: string; pick: Pick }) => {
         <DetailItem label="Market" value={pick.market} />
         <DetailItem
           label="Payout if it lands"
-          value={`${formatMoney(pick.stake)} × ${odds} = ${formatMoney(calculatePayout(pick.stake, pick.odds))}`}
+          value={`${formatMoney(pick.stake)} at ${odds} returns ${formatMoney(calculatePayout(pick.stake, pick.odds))}`}
         />
       </dl>
-      <p className="mt-4 max-w-[620px] text-[12px]/[1.5] text-ink/60">
+      <p className="mt-4 max-w-[620px] text-[12px]/[1.5] text-ink/70">
         {COUNTING_NOTES[pick.status]}
       </p>
     </div>

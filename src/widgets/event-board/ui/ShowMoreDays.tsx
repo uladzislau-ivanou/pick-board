@@ -12,8 +12,5 @@ export const ShowMoreDays = ({
     <Button variant="secondary" onClick={onShowMore}>
       Show {plural(hiddenDays, 'more day')}
     </Button>
-    <p className="mt-2 text-[12px] text-ink/50">
-      Later days load on demand — nothing off-screen is rendered.
-    </p>
   </div>
 )

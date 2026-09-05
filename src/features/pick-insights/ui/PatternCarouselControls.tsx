@@ -5,7 +5,7 @@ import { cn } from '@/shared/lib/cn'
 import type { Insight } from '../model/insight'
 
 const ARROW =
-  'flex size-7 items-center justify-center rounded-sm border border-on-field/55 hover:bg-on-field/18'
+  'flex size-7 items-center justify-center rounded-sm border border-divider text-ink/70 hover:border-pb-brand hover:bg-pb-brand-tint hover:text-pb-brand'
 
 export const PatternCarouselControls = ({
   insights,
@@ -16,8 +16,11 @@ export const PatternCarouselControls = ({
   index: number
   onChange: (index: number) => void
 }) => (
-  <div className="flex items-center gap-2">
-    <div className="mr-auto flex items-center gap-1.5">
+  <div className="flex shrink-0 items-center gap-2">
+    <span className="mr-1 text-[10px] whitespace-nowrap text-ink/65">
+      Pattern {index + 1} / {insights.length}
+    </span>
+    <div className="flex items-center gap-0.5">
       {insights.map((insight, position) => (
         <button
           key={insight.kicker + position}
@@ -29,8 +32,8 @@ export const PatternCarouselControls = ({
         >
           <span
             className={cn(
-              'size-2.5 rounded-full border border-on-field',
-              position === index ? 'bg-on-field' : 'bg-transparent',
+              'size-2 rounded-full border border-ink/45',
+              position === index ? 'bg-ink' : 'bg-transparent',
             )}
           />
         </button>
@@ -42,7 +45,7 @@ export const PatternCarouselControls = ({
       onClick={() => onChange(index - 1)}
       className={ARROW}
     >
-      <ChevronLeft size={16} />
+      <ChevronLeft size={15} />
     </button>
     <button
       type="button"
@@ -50,7 +53,7 @@ export const PatternCarouselControls = ({
       onClick={() => onChange(index + 1)}
       className={ARROW}
     >
-      <ChevronRight size={16} />
+      <ChevronRight size={15} />
     </button>
   </div>
 )

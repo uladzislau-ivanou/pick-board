@@ -60,7 +60,7 @@ describe('PickLedger tabs', () => {
       'aria-pressed',
       'true',
     )
-    expect(screen.getByRole('button', { name: '0 pending picks in this period' })).toHaveAttribute(
+    expect(screen.getByRole('button', { name: '0 open picks in this period' })).toHaveAttribute(
       'aria-pressed',
       'false',
     )
@@ -69,7 +69,7 @@ describe('PickLedger tabs', () => {
   it('opens on Pending as soon as a pick is open', () => {
     renderLedger([pending, ...seed])
 
-    expect(screen.getByRole('button', { name: '1 pending pick in this period' })).toHaveAttribute(
+    expect(screen.getByRole('button', { name: '1 open pick in this period' })).toHaveAttribute(
       'aria-pressed',
       'true',
     )
@@ -79,7 +79,7 @@ describe('PickLedger tabs', () => {
   it('shows the pending empty copy when the tab is switched to an empty one', async () => {
     const user = renderLedger()
 
-    await user.click(screen.getByRole('button', { name: /pending picks in this period/ }))
+    await user.click(screen.getByRole('button', { name: /open picks in this period/ }))
 
     expect(screen.getByRole('heading', { name: 'Nothing open right now.' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Browse events' })).toBeInTheDocument()
@@ -141,7 +141,7 @@ describe('PickLedger row disclosure', () => {
     expect(target).toHaveAttribute('aria-controls', 'pick-detail-h10')
 
     await user.click(target)
-    expect(screen.getByText('$25 × 2.05 = $51.25')).toBeInTheDocument()
+    expect(screen.getByText('$25 at 2.05 returns $51.25')).toBeInTheDocument()
     expect(
       screen.getByText(/Counted as a win in your strike rate/, { selector: 'p' }),
     ).toBeInTheDocument()
@@ -169,7 +169,6 @@ describe('PickLedger filters', () => {
 
     await user.selectOptions(screen.getByRole('combobox', { name: 'Sort' }), 'stake')
 
-    expect(screen.getByText('Sorted by stake, largest first')).toBeInTheDocument()
     expect(rows()[0]).toHaveAccessibleName(/^Bucks, Moneyline/)
   })
 
@@ -196,11 +195,11 @@ describe('PickLedger filters', () => {
   it('explains an empty day rather than looking broken', async () => {
     const user = renderLedger()
 
-    await user.click(screen.getByRole('button', { name: /pending picks in this period/ }))
+    await user.click(screen.getByRole('button', { name: /open picks in this period/ }))
     await user.click(screen.getByRole('button', { name: 'Select day' }))
 
     expect(
-      screen.getByRole('heading', { name: 'No pending picks on Wed, Sep 2.' }),
+      screen.getByRole('heading', { name: 'No open picks on Wed, Sep 2.' }),
     ).toBeInTheDocument()
     expect(screen.getByText(/Clear the day filter above/)).toBeInTheDocument()
   })

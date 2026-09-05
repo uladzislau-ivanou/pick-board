@@ -52,10 +52,10 @@ describe('DailyPerformanceChart', () => {
     expect(screen.getByText('+$54.25')).toBeInTheDocument()
   })
 
-  it('names every status in the legend, so colour is never the only cue', () => {
+  it('names every series in the legend, so colour is never the only cue', () => {
     renderChart()
 
-    for (const label of ['Won', 'Lost', 'Pending']) {
+    for (const label of ['Won', 'Lost', 'Pending', 'Running net']) {
       expect(screen.getByText(label)).toBeInTheDocument()
     }
   })
@@ -105,24 +105,6 @@ describe('DailyPerformanceChart', () => {
 
     expect(screen.getByText('$55')).toBeInTheDocument()
     expect(screen.getAllByText('—').length).toBeGreaterThan(0)
-  })
-
-  it('marks a day with only pending picks as open', () => {
-    const pending: Pick[] = [
-      {
-        id: 'open-1',
-        event: 'Nuggets @ Celtics',
-        market: 'Moneyline',
-        selection: 'Celtics',
-        odds: 2,
-        stake: 10,
-        status: 'Pending',
-        placedAt: NOW,
-      },
-    ]
-    renderChart({ picks: pending })
-
-    expect(screen.getByText('open')).toBeInTheDocument()
   })
 
   it('thins the labels and drops the per-day figures over a long period', () => {

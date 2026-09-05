@@ -2,6 +2,7 @@ export interface TeamCrest {
   abbr: string
   color: string
   color2: string
+  short?: string
 }
 
 export const TEAM_CRESTS: Record<string, TeamCrest> = {
@@ -29,8 +30,8 @@ export const TEAM_CRESTS: Record<string, TeamCrest> = {
   'Miami Heat': { abbr: 'MIA', color: '#98002e', color2: '#f9a01b' },
   'Green Bay Packers': { abbr: 'GB', color: '#203731', color2: '#ffb612' },
   'Detroit Lions': { abbr: 'DET', color: '#0f5c8c', color2: '#b0b7bc' },
-  'Newcastle United': { abbr: 'NEW', color: '#2a2a2a', color2: '#f1be48' },
-  'Tottenham Hotspur': { abbr: 'TOT', color: '#132257', color2: '#ffffff' },
+  'Newcastle United': { short: 'Newcastle', abbr: 'NEW', color: '#2a2a2a', color2: '#f1be48' },
+  'Tottenham Hotspur': { short: 'Tottenham', abbr: 'TOT', color: '#132257', color2: '#ffffff' },
   'New Jersey Devils': { abbr: 'NJD', color: '#ce1126', color2: '#000000' },
   'New York Rangers': { abbr: 'NYR', color: '#0038a8', color2: '#ce1126' },
   'Los Angeles Lakers': { abbr: 'LAL', color: '#552583', color2: '#fdb927' },

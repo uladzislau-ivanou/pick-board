@@ -69,7 +69,7 @@ describe('PicksProvider', () => {
 
   it('re-anchors the seeded history to today, however old the stored picks are', () => {
     const stale = { ...SEED_SHAPE, placedAt: Date.now() - 400 * DAY }
-    window.localStorage.setItem('pickboard.picks.v2', JSON.stringify([stale]))
+    window.localStorage.setItem('pickboard.picks', JSON.stringify([stale]))
 
     renderProvider()
 

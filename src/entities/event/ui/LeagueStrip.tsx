@@ -1,16 +1,15 @@
-import { formatKickoff } from '@/shared/lib/date'
-import { plural } from '@/shared/lib/text'
 import { SportIcon } from '@/shared/ui/SportIcon'
-import { Tag } from '@/shared/ui/Tag'
 
+import { kickoffState } from '../lib/kickoff'
 import type { SportEvent } from '../model/types'
+import { KickoffBadge } from './KickoffBadge'
 
-export const LeagueStrip = ({ event }: { event: SportEvent }) => (
-  <div className="flex items-center gap-2.5 border-b border-divider bg-neutral-200 px-4.5 py-2">
-    <SportIcon sport={event.sport} className="text-ink/70" />
-    <span className="flex-1 text-[10px] font-semibold tracking-[.14em] text-ink/60 uppercase">
-      {event.league} · {formatKickoff(event.kickoffAt)}
+export const LeagueStrip = ({ event, now }: { event: SportEvent; now: number }) => (
+  <div className="flex items-center gap-2.5 px-matchup-x pt-2.5 pb-1.5">
+    <SportIcon sport={event.sport} size={14} className="text-ink/65" />
+    <span className="text-[10px] font-semibold tracking-[.14em] text-ink/65 uppercase">
+      {event.league}
     </span>
-    <Tag>{plural(event.markets.length, 'market')}</Tag>
+    <KickoffBadge state={kickoffState(event.kickoffAt, now)} kickoffAt={event.kickoffAt} />
   </div>
 )

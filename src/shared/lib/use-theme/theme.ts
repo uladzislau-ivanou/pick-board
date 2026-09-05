@@ -1,6 +1,6 @@
 export type Theme = 'light' | 'dark'
 
-export const THEME_STORAGE_KEY = 'pickboard.theme.v1'
+export const THEME_STORAGE_KEY = 'pickboard.theme'
 
 export const applyTheme = (theme: Theme) => {
   document.documentElement.dataset.theme = theme

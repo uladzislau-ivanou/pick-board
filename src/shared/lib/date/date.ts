@@ -1,6 +1,10 @@
 const LOCALE = 'en-US'
 
-export const DAY = 86_400_000
+export const MINUTE = 60_000
+
+export const HOUR = 60 * MINUTE
+
+export const DAY = 24 * HOUR
 
 export const startOfDay = (timestamp: number) => new Date(timestamp).setHours(0, 0, 0, 0)
 

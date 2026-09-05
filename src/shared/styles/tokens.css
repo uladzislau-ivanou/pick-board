@@ -2,103 +2,58 @@
   --color-*: initial;
 
   --color-bg: #f3f2f2;
-  --color-surface: #eae9e9;
   --color-text: #201e1d;
   --color-accent: #ec3013;
-  --color-accent-2: #e15b47;
+  --color-accent-ink: #ae1800;
   --color-divider: color-mix(in srgb, #201e1d 40%, transparent);
   --color-white: #ffffff;
 
   --color-neutral-100: #f8f4f4;
   --color-neutral-200: #eae7e7;
-  --color-neutral-300: #d7d3d3;
-  --color-neutral-400: #bab6b6;
-  --color-neutral-500: #9b9797;
-  --color-neutral-600: #7d7979;
-  --color-neutral-700: #605d5d;
-  --color-neutral-800: #444141;
-  --color-neutral-900: #2d2b2b;
 
-  --color-accent-100: #fff2ef;
-  --color-accent-200: #ffe0d9;
-  --color-accent-300: #ffc4b8;
-  --color-accent-400: #ff9783;
-  --color-accent-500: #ff563c;
-  --color-accent-600: #dd2b0f;
-  --color-accent-700: #ae1800;
-  --color-accent-800: #7c1405;
-  --color-accent-900: #4d170e;
-
-  --color-accent-2-100: #fff2ef;
-  --color-accent-2-200: #ffe0da;
-  --color-accent-2-300: #ffc4b9;
-  --color-accent-2-400: #ff9784;
-  --color-accent-2-500: #ef6853;
-  --color-accent-2-600: #c94b39;
-  --color-accent-2-700: #9e3526;
-  --color-accent-2-800: #71261b;
-  --color-accent-2-900: #471d16;
-
-  --color-pb-brand: #7c3aed;
-  --color-pb-brand-ink: #2a1065;
-  --color-pb-brand-deep: #1b0b45;
-  --color-pb-brand-tint: #f1eaff;
-  --color-pb-brand-tint-2: #e2d5ff;
-  --color-pb-win: #0d7a58;
+  --color-pb-brand: #1d4ed8;
+  --color-pb-brand-ink: #16277a;
+  --color-pb-brand-tint: #e8eefc;
+  --color-pb-brand-tint-2: #d2e0fa;
+  --color-pb-win: #0c7252;
   --color-pb-loss: #b23a2f;
   --color-pb-win-field: #0d7a58;
   --color-pb-loss-field: #b23a2f;
-  --color-pb-gold: #f5b731;
 
   --color-inverse: #2d2b2b;
   --color-inverse-ink: #f3f2f2;
   --color-scrim: color-mix(in srgb, #2d2b2b 55%, transparent);
   --color-on-field: #f7f5f2;
-  --crest-tint: 20%;
-  --crest-tint-far: 7%;
 
   --font-heading: 'Archivo', system-ui, sans-serif;
   --font-body: 'Archivo', system-ui, sans-serif;
   --font-heading-weight: 800;
 
-  --text-team: clamp(14px, 3.4vw, 17px);
-  --text-crest: clamp(11px, 2.6vw, 14px);
+  --text-team: clamp(13px, 3vw, 15px);
+  --text-crest: clamp(8.5px, 2.1vw, 10px);
 
   --spacing: 4px;
 
-  --spacing-crest: clamp(34px, 9vw, 46px);
-  --spacing-matchup-x: clamp(10px, 3vw, 16px);
-  --spacing-matchup-gap: clamp(8px, 2.5vw, 13px);
+  --spacing-crest: clamp(20px, 5.5vw, 27px);
+  --spacing-matchup-x: clamp(8px, 3vw, 16px);
   --spacing-header-gap: clamp(8px, 3vw, 28px);
   --spacing-nav-x: clamp(11px, 3vw, 18px);
+
+  --odds-col: clamp(50px, 15vw, 92px);
 
   --radius-sm: 4px;
   --radius-md: 7px;
   --radius-lg: 12px;
 
-  --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
-  --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
   --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
 
   --animate-pb-in: pb-in 160ms ease-out;
   --animate-pb-in-fast: pb-in 140ms ease-out;
-  --animate-pb-slide: pb-slide 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
 
   @keyframes pb-in {
     from {
       opacity: 0;
       transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  @keyframes pb-slide {
-    from {
-      opacity: 0;
-      transform: translateX(-24px);
     }
     to {
       opacity: 1;
@@ -116,43 +71,27 @@
   color-scheme: dark;
 
   --color-bg: #1a1917;
-  --color-surface: #262422;
   --color-text: #f0eeeb;
   --color-divider: color-mix(in srgb, #f0eeeb 34%, transparent);
 
   --color-neutral-100: #211f1d;
   --color-neutral-200: #2a2724;
-  --color-neutral-300: #3a3733;
-  --color-neutral-400: #4e4a45;
-  --color-neutral-500: #6c665f;
-  --color-neutral-600: #8b847b;
-  --color-neutral-700: #aaa39a;
-  --color-neutral-800: #c9c2b9;
-  --color-neutral-900: #e8e1d8;
 
-  --color-pb-brand: #a888ff;
-  --color-pb-brand-ink: #cbb6ff;
-  --color-pb-brand-deep: #2e1c5c;
-  --color-pb-brand-tint: #2b2247;
-  --color-pb-brand-tint-2: #3b2f60;
+  --color-pb-brand: #7aa7ff;
+  --color-pb-brand-ink: #a9c6ff;
+  --color-pb-brand-tint: #1e2b47;
+  --color-pb-brand-tint-2: #2a3a60;
   --color-pb-win: #43c396;
   --color-pb-loss: #e8796c;
   --color-pb-win-field: #0f6a4c;
   --color-pb-loss-field: #8e2f26;
 
   --color-accent: #ff5c3d;
-  --color-accent-700: #ff9b83;
-  --color-accent-100: #2a1a14;
-  --color-accent-200: #3a2117;
+  --color-accent-ink: #ff9b83;
 
   --color-inverse: #ece6de;
   --color-inverse-ink: #1a1917;
   --color-scrim: color-mix(in srgb, #000000 68%, transparent);
 
-  --shadow-sm: 0 1px 2px color-mix(in srgb, #000000 40%, transparent);
-  --shadow-md: 0 3px 10px color-mix(in srgb, #000000 46%, transparent);
   --shadow-lg: 0 12px 32px color-mix(in srgb, #000000 55%, transparent);
-
-  --crest-tint: 34%;
-  --crest-tint-far: 12%;
 }

@@ -14,7 +14,7 @@ export const LoadMoreRows = ({
     <Button variant="secondary" onClick={onShowMore}>
       Load {Math.min(ROWS_PER_PAGE, total - shown)} more
     </Button>
-    <p className="text-[12px] text-ink/50">
+    <p className="text-[12px] text-ink/65">
       {shown} of {total} shown
     </p>
   </div>

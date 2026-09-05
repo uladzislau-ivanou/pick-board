@@ -12,6 +12,7 @@ import { cn } from '@/shared/lib/cn'
 
 import { useExpandedRows } from '../model/use-expanded-rows'
 import { LedgerEmptyState } from './LedgerEmptyState'
+import { LedgerHeader } from './LedgerHeader'
 import { LedgerRows } from './LedgerRows'
 import { LoadMoreRows } from './LoadMoreRows'
 
@@ -36,7 +37,10 @@ export const PickLedger = ({
   return (
     <section
       aria-label="Picks"
-      className={cn('overflow-hidden rounded-b-lg border border-divider bg-neutral-100', className)}
+      className={cn(
+        '@container/ledger overflow-hidden rounded-b-lg border border-divider bg-neutral-100',
+        className,
+      )}
     >
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-divider px-5 py-3.5">
         <h3 className="text-[20px]">Picks</h3>
@@ -58,6 +62,7 @@ export const PickLedger = ({
         />
       ) : (
         <>
+          <LedgerHeader />
           <LedgerRows rows={view.rows} isExpanded={rows.isExpanded} onToggle={rows.toggle} />
           {view.rows.length < view.totalRows ? (
             <LoadMoreRows

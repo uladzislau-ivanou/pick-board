@@ -1,1 +1,0 @@
-export { DisclosureSquare } from './DisclosureSquare'

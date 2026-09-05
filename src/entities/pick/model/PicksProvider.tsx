@@ -7,7 +7,7 @@ import { getSeedPicks } from '../api/pick-fixtures'
 import { PicksContext } from './picks-context'
 import type { NewPick, Pick } from './types'
 
-const STORAGE_KEY = 'pickboard.picks.v2'
+const STORAGE_KEY = 'pickboard.picks'
 
 export const PicksProvider = ({ children }: { children: ReactNode }) => {
   const [placed, setPlaced] = useLocalStorageState<Pick[]>(STORAGE_KEY, () => [])
