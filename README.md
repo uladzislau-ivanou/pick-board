@@ -15,7 +15,7 @@ on a dashboard that tells you something you did not already know.**
 
 </div>
 
-![The My Picks dashboard](docs/my-picks.png)
+![The My Picks dashboard](docs/my-picks-dashboard.png)
 
 ## What it does
 
@@ -63,11 +63,11 @@ CI runs typecheck → lint → format → test → build on every push and pull 
 
 |                                                Events                                                |                                     Place Pick                                      |
 | :--------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: |
-|                                   ![Events board](docs/events.png)                                   |                      ![Place Pick modal](docs/place-pick.png)                       |
+|                                ![Events board](docs/events-board.png)                                |                   ![Place Pick modal](docs/place-pick-modal.png)                    |
 | Three fixed price columns, headed once per day group, with an em-dash where a market is not offered. | The selection, its market and event, the odds, a validated stake and a live payout. |
 
 <div align="center">
-  <img src="docs/mobile.png" alt="My Picks on a phone" width="330">
+  <img src="docs/my-picks-mobile.png" alt="My Picks on a phone" width="330">
   <p><em>The same dashboard at 430px — the ledger becomes labelled cards, driven by a container query rather than a viewport breakpoint.</em></p>
 </div>
 
