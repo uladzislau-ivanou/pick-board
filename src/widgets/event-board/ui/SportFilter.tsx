@@ -1,7 +1,7 @@
 import { countBySport, type SportEvent } from '@/entities/event'
 import { SPORTS, SPORT_LABELS } from '@/shared/config/sports'
 
-import type { SportFilterValue } from '../model/types'
+import type { SportFilterValue } from '../lib/filter-by-sport'
 import { SportChip } from './SportChip'
 
 export const SportFilter = ({

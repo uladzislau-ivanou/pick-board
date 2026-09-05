@@ -7,8 +7,8 @@ import { initialPickQuery, pickQueryReducer, type PickQuery } from './pick-query
 const paged: PickQuery = { ...initialPickQuery, visibleRows: 18, dayFilter: 1_700_000_000_000 }
 
 describe('pickQueryReducer', () => {
-  it('starts on the data-driven tab with one page of rows', () => {
-    expect(initialPickQuery.tab).toBeNull()
+  it('starts on the All tab with one page of rows', () => {
+    expect(initialPickQuery.tab).toBe('all')
     expect(initialPickQuery.visibleRows).toBe(ROWS_PER_PAGE)
   })
 

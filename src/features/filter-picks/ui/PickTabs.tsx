@@ -24,6 +24,16 @@ export const PickTabs = ({
     onChange={onChange}
     options={[
       {
+        value: 'all',
+        label: (
+          <>
+            All
+            <Count>{pendingCount + settledCount}</Count>
+          </>
+        ),
+        ariaLabel: `${plural(pendingCount + settledCount, 'pick')} in this period`,
+      },
+      {
         value: 'pending',
         label: (
           <>

@@ -1,4 +1,4 @@
-import type { SportFilterValue } from '@/features/filter-events-by-sport'
+import type { SportFilterValue } from '../lib/filter-by-sport'
 import { SPORT_LABELS } from '@/shared/config/sports'
 import { Button } from '@/shared/ui/Button'
 

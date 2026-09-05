@@ -1,4 +1,4 @@
-export { formatOdds, ODDS_FORMAT_LABELS, ODDS_FORMAT_SHORT } from './format-odds'
+export { ODDS_FORMAT_LABELS, ODDS_FORMAT_SHORT } from './format-odds'
 export type { OddsFormat } from './format-odds'
 export { OddsFormatProvider } from './OddsFormatProvider'
 export { useOddsFormat } from './odds-format-context'

@@ -1,1 +1,0 @@
-export { SportIcon } from './SportIcon'

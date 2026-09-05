@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import type { SportFilterValue } from '@/features/filter-events-by-sport'
+import type { SportFilterValue } from '../lib/filter-by-sport'
 import { DAYS_PER_PAGE } from '@/shared/config/app'
 
 export const useEventBoard = () => {

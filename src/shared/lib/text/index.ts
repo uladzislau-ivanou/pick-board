@@ -1,1 +1,0 @@
-export { plural } from './plural'

@@ -2,9 +2,13 @@ import type { PickTab } from '@/features/filter-picks'
 import { formatDayWithDate } from '@/shared/lib/date'
 import { Button } from '@/shared/ui/Button'
 
-const TAB_LABELS: Record<PickTab, string> = { pending: 'open', settled: 'settled' }
+const TAB_LABELS: Record<PickTab, string> = { all: '', pending: 'open ', settled: 'settled ' }
 
 const TAB_COPY: Record<PickTab, { title: string; body: string }> = {
+  all: {
+    title: 'No picks in this period.',
+    body: 'Place a pick on the board and it shows up here straight away.',
+  },
   pending: {
     title: 'Nothing open right now.',
     body: 'Picks you place stay here until their event kicks off and settles.',
@@ -28,7 +32,7 @@ export const LedgerEmptyState = ({
     dayFilter === null
       ? TAB_COPY[tab]
       : {
-          title: `No ${TAB_LABELS[tab]} picks on ${formatDayWithDate(dayFilter)}.`,
+          title: `No ${TAB_LABELS[tab]}picks on ${formatDayWithDate(dayFilter)}.`,
           body: 'Clear the day filter above to see the rest of this period.',
         }
 

@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { DEFAULT_STAKE } from '@/shared/config/app'
 
-import { sanitizeStake } from '../lib/sanitize-stake'
+import { sanitizeStake } from '../lib/stake'
 import type { PickDraft } from '../model/types'
 import { PlacePickModal } from './PlacePickModal'
 

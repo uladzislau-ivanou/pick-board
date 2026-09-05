@@ -1,5 +1,6 @@
 import { groupByDay, type Market, type Outcome, type SportEvent } from '@/entities/event'
-import { filterBySport, SportFilter } from '@/features/filter-events-by-sport'
+import { filterBySport } from '../lib/filter-by-sport'
+import { SportFilter } from './SportFilter'
 
 import { useEventBoard } from '../model/use-event-board'
 import { DayGroup } from './DayGroup'

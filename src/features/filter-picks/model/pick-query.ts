@@ -2,14 +2,14 @@ import type { PickPeriod } from '@/entities/pick'
 import { ROWS_PER_PAGE } from '@/shared/config/app'
 import type { MarketType } from '@/shared/config/markets'
 
-export type PickTab = 'pending' | 'settled'
+export type PickTab = 'all' | 'pending' | 'settled'
 
 export type MarketFilter = MarketType | 'all'
 
 export type SortOption = 'recent' | 'stake' | 'payout'
 
 export interface PickQuery {
-  tab: PickTab | null
+  tab: PickTab
   period: PickPeriod
   market: MarketFilter
   sort: SortOption
@@ -27,7 +27,7 @@ export type PickQueryAction =
   | { type: 'showMoreRows' }
 
 export const initialPickQuery: PickQuery = {
-  tab: null,
+  tab: 'all',
   period: '7d',
   market: 'all',
   sort: 'recent',

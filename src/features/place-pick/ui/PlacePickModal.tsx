@@ -2,16 +2,45 @@ import { X } from 'lucide-react'
 import { useRef } from 'react'
 
 import { calculatePayout, calculateProfit } from '@/entities/pick'
+import { formatMoney } from '@/shared/lib/money'
+import { ODDS_FORMAT_LABELS, useFormatOdds, useOddsFormat } from '@/shared/lib/odds'
 import { Button } from '@/shared/ui/Button'
 import { Modal } from '@/shared/ui/Modal'
 import { SportIcon } from '@/shared/ui/SportIcon'
 
-import { validateStake } from '../lib/validate-stake'
+import { validateStake } from '../lib/stake'
 import type { PickDraft } from '../model/types'
-import { OddsRow } from './OddsRow'
-import { PayoutBlock } from './PayoutBlock'
 import { QuickStakes } from './QuickStakes'
 import { StakeField } from './StakeField'
+
+const CAPTION = 'text-[10px] font-semibold tracking-[.12em] text-ink/70 uppercase'
+
+const OddsRow = ({ odds }: { odds: number }) => {
+  const formatOdds = useFormatOdds()
+  const { format } = useOddsFormat()
+
+  return (
+    <div className="flex items-center justify-between rounded-md border border-divider bg-neutral-200 px-3.5 py-3">
+      <span className={CAPTION}>Odds · {ODDS_FORMAT_LABELS[format]}</span>
+      <span className="type-heading text-[18px]">{formatOdds(odds)}</span>
+    </div>
+  )
+}
+
+const PayoutBlock = ({ payout, profit }: { payout: number; profit: number }) => (
+  <div className="flex items-end justify-between gap-4 border-t-2 border-divider pt-3.5">
+    <div>
+      <p className={CAPTION}>To win</p>
+      <p className="type-heading text-[20px] tracking-[-0.02em] text-pb-win">
+        {formatMoney(profit)}
+      </p>
+    </div>
+    <div className="text-right">
+      <p className={CAPTION}>Total return</p>
+      <p className="type-heading text-[30px] tracking-[-0.03em]">{formatMoney(payout)}</p>
+    </div>
+  </div>
+)
 
 const TITLE_ID = 'place-pick-title'
 const ERROR_ID = 'place-pick-error'

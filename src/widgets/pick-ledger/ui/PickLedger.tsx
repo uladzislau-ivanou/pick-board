@@ -1,6 +1,6 @@
 import type { ActionDispatch } from 'react'
 
-import type { Pick } from '@/entities/pick'
+import { PickRow, type Pick } from '@/entities/pick'
 import {
   applyPickQuery,
   PickFilterBar,
@@ -8,13 +8,13 @@ import {
   type PickQuery,
   type PickQueryAction,
 } from '@/features/filter-picks'
+import { ROWS_PER_PAGE } from '@/shared/config/app'
 import { cn } from '@/shared/lib/cn'
+import { Button } from '@/shared/ui/Button'
 
 import { useExpandedRows } from '../model/use-expanded-rows'
 import { LedgerEmptyState } from './LedgerEmptyState'
 import { LedgerHeader } from './LedgerHeader'
-import { LedgerRows } from './LedgerRows'
-import { LoadMoreRows } from './LoadMoreRows'
 
 export const PickLedger = ({
   picks,
@@ -63,13 +63,23 @@ export const PickLedger = ({
       ) : (
         <>
           <LedgerHeader />
-          <LedgerRows rows={view.rows} isExpanded={rows.isExpanded} onToggle={rows.toggle} />
-          {view.rows.length < view.totalRows ? (
-            <LoadMoreRows
-              shown={view.rows.length}
-              total={view.totalRows}
-              onShowMore={() => dispatch({ type: 'showMoreRows' })}
+          {view.rows.map((pick) => (
+            <PickRow
+              key={pick.id}
+              pick={pick}
+              expanded={rows.isExpanded(pick.id)}
+              onToggle={() => rows.toggle(pick.id)}
             />
+          ))}
+          {view.rows.length < view.totalRows ? (
+            <div className="flex flex-wrap items-center gap-3 px-5 py-4.5">
+              <Button variant="secondary" onClick={() => dispatch({ type: 'showMoreRows' })}>
+                Load {Math.min(ROWS_PER_PAGE, view.totalRows - view.rows.length)} more
+              </Button>
+              <p className="text-[12px] text-ink/65">
+                {view.rows.length} of {view.totalRows} shown
+              </p>
+            </div>
           ) : null}
         </>
       )}

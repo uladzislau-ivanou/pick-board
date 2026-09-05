@@ -9,7 +9,7 @@ import {
 } from '@/entities/pick'
 import { formatMoney } from '@/shared/lib/money'
 import { plural } from '@/shared/lib/text'
-import { Stat, StatGroup } from '@/shared/ui/StatGroup'
+import { LabeledValue, LabeledValueRow } from '@/shared/ui/LabeledValue'
 
 export const PickTotals = ({
   picks,
@@ -23,23 +23,26 @@ export const PickTotals = ({
   const rate = winRate(picks)
 
   return (
-    <StatGroup className={className}>
-      <Stat
+    <LabeledValueRow className={className}>
+      <LabeledValue
+        size="lg"
         label="Total staked"
         value={formatMoney(totalStaked(picks))}
         note={`${plural(picks.length, 'pick')} all time`}
       />
-      <Stat
+      <LabeledValue
+        size="lg"
         label="Pending payout"
         value={formatMoney(pendingPayout(picks))}
         note={`${open.length} open · ${formatMoney(totalStaked(open))} at risk`}
         valueClassName="text-pb-brand"
       />
-      <Stat
+      <LabeledValue
+        size="lg"
         label="Win rate"
         value={rate === null ? '—' : `${Math.round(rate * 100)}%`}
         note={`${resolved.filter(isWon).length} of ${resolved.length} resolved`}
       />
-    </StatGroup>
+    </LabeledValueRow>
   )
 }

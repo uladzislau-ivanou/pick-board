@@ -33,8 +33,10 @@ export const periodRange = (
   return { spanDays, startDay: endDay - (spanDays - 1) * DAY, endDay }
 }
 
-export const isInPeriod = (pick: Pick, range: PeriodRange) =>
-  startOfDay(pick.placedAt) >= range.startDay
+export const isInPeriod = (pick: Pick, range: PeriodRange) => {
+  const day = startOfDay(pick.placedAt)
+  return day >= range.startDay && day <= range.endDay
+}
 
 export const periodLabel = (period: PickPeriod, spanDays: number) =>
   period === 'all' ? `All time · ${plural(spanDays, 'day')}` : `Last ${plural(spanDays, 'day')}`

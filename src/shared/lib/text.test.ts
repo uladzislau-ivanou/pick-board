@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { plural } from './plural'
+import { plural } from './text'
 
 describe('plural', () => {
   it('keeps the singular for exactly one', () => {

@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { getSeedPicks, type Pick } from '@/entities/pick'
 import { usePickQuery } from '@/features/filter-picks'
+import { ROWS_PER_PAGE } from '@/shared/config/app'
 import { DAY, startOfDay } from '@/shared/lib/date'
 
 import { PickLedger } from './PickLedger'
@@ -53,26 +54,27 @@ const rows = () => screen.getAllByRole('button').filter((el) => el.hasAttribute(
 const row = (name: RegExp) => screen.getByRole('button', { name })
 
 describe('PickLedger tabs', () => {
-  it('opens on Settled when nothing is pending, with both counts', () => {
-    renderLedger()
+  it('opens on All, with every count on show', () => {
+    renderLedger([pending, ...seed])
 
-    expect(screen.getByRole('button', { name: '10 settled picks in this period' })).toHaveAttribute(
+    expect(screen.getByRole('button', { name: '11 picks in this period' })).toHaveAttribute(
       'aria-pressed',
       'true',
     )
-    expect(screen.getByRole('button', { name: '0 open picks in this period' })).toHaveAttribute(
+    expect(screen.getByRole('button', { name: '1 open pick in this period' })).toHaveAttribute(
       'aria-pressed',
       'false',
     )
+    expect(screen.getByRole('button', { name: '10 settled picks in this period' })).toBeVisible()
   })
 
-  it('opens on Pending as soon as a pick is open', () => {
-    renderLedger([pending, ...seed])
+  it('lists a placed pick beside the seeded history', async () => {
+    const user = renderLedger([pending, ...seed])
 
-    expect(screen.getByRole('button', { name: '1 open pick in this period' })).toHaveAttribute(
-      'aria-pressed',
-      'true',
-    )
+    expect(rows()).toHaveLength(ROWS_PER_PAGE)
+
+    await user.click(screen.getByRole('button', { name: '1 open pick in this period' }))
+
     expect(rows()).toHaveLength(1)
   })
 

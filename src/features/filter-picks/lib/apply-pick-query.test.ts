@@ -25,17 +25,21 @@ const view = (picks: readonly Pick[], query: Partial<PickQuery> = {}) =>
 
 const ids = (picks: readonly Pick[]) => picks.map((pick) => pick.id)
 
-describe('applyPickQuery tab default', () => {
-  it('opens on Settled when nothing is pending', () => {
-    const result = view(seed)
+describe('applyPickQuery tabs', () => {
+  it('opens on All, listing pending and settled together', () => {
+    const result = view([...seed, open('p1', 0, 10, 2)])
 
-    expect(result.tab).toBe('settled')
-    expect(result.pendingCount).toBe(0)
+    expect(result.tab).toBe('all')
+    expect(result.totalRows).toBe(11)
+    expect(result.pendingCount).toBe(1)
     expect(result.settledCount).toBe(10)
   })
 
-  it('opens on Pending as soon as a pick is open', () => {
-    expect(view([...seed, open('p1', 0, 10, 2)]).tab).toBe('pending')
+  it('narrows to one status when a tab is selected', () => {
+    const picks = [...seed, open('p1', 0, 10, 2)]
+
+    expect(view(picks, { tab: 'pending' }).totalRows).toBe(1)
+    expect(view(picks, { tab: 'settled' }).totalRows).toBe(10)
   })
 
   it('honours an explicit tab over the default', () => {

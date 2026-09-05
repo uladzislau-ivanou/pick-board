@@ -1,22 +1,14 @@
 import { cleanup, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { createMemoryRouter, RouterProvider } from 'react-router'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { PicksProvider } from '@/entities/pick'
-import { ToastProvider } from '@/shared/ui/Toast'
+import { ROWS_PER_PAGE } from '@/shared/config/app'
 
-import { routes } from './routes/router'
+import { App } from './App'
 
 const renderApp = () => {
   const user = userEvent.setup()
-  render(
-    <PicksProvider>
-      <ToastProvider>
-        <RouterProvider router={createMemoryRouter(routes, { initialEntries: ['/'] })} />
-      </ToastProvider>
-    </PicksProvider>,
-  )
+  render(<App />)
   return user
 }
 
@@ -27,7 +19,10 @@ const total = (label: string) => within(screen.getByText(label).parentElement as
 const rows = () => screen.getAllByRole('button').filter((el) => el.hasAttribute('aria-expanded'))
 
 describe('placing a pick, end to end', () => {
-  beforeEach(() => window.localStorage.clear())
+  beforeEach(() => {
+    window.localStorage.clear()
+    window.history.replaceState(null, '', '/')
+  })
 
   it('goes from a price on the board to a pending pick on My Picks', async () => {
     const user = renderApp()
@@ -59,7 +54,7 @@ describe('placing a pick, end to end', () => {
     await user.click(screen.getByRole('button', { name: 'Place pick' }))
     await user.click(screen.getByRole('button', { name: 'View' }))
 
-    expect(rows()).toHaveLength(1)
+    expect(rows()).toHaveLength(ROWS_PER_PAGE)
     expect(rows()[0]).toHaveAccessibleName(
       /^Celtics, Moneyline, Nuggets @ Celtics\. odds 1\.72\. stake \$25\. to return \$43\. Pending$/,
     )

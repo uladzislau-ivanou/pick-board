@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { sanitizeStake } from './sanitize-stake'
-import { validateStake } from './validate-stake'
+import { sanitizeStake, validateStake } from './stake'
 
 describe('sanitizeStake', () => {
   it('keeps digits and a decimal point', () => {

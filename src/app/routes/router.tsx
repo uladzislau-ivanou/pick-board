@@ -17,6 +17,5 @@ export const routes: RouteObject[] = [
   },
 ]
 
-export const router = createBrowserRouter(routes, {
-  basename: import.meta.env.BASE_URL,
-})
+export const createAppRouter = () =>
+  createBrowserRouter(routes, { basename: import.meta.env.BASE_URL })

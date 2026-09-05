@@ -9,7 +9,7 @@ import { pendingPicks, totalStaked, type Pick } from '@/entities/pick'
 import { formatKickoff, formatRelativeDay } from '@/shared/lib/date'
 import { formatMoney } from '@/shared/lib/money'
 import { plural } from '@/shared/lib/text'
-import { Stat, StatGroup } from '@/shared/ui/StatGroup'
+import { LabeledValue, LabeledValueRow } from '@/shared/ui/LabeledValue'
 
 const countdown = (kickoffAt: number, now: number) => {
   const state = kickoffState(kickoffAt, now)
@@ -31,8 +31,9 @@ export const BoardSummary = ({
   const open = pendingPicks(picks)
 
   return (
-    <StatGroup>
-      <Stat
+    <LabeledValueRow>
+      <LabeledValue
+        size="lg"
         label="Next off"
         value={next === undefined ? '—' : matchupLabel(next.away, next.home)}
         note={
@@ -42,18 +43,20 @@ export const BoardSummary = ({
         }
         valueClassName="text-[15px]"
       />
-      <Stat
+      <LabeledValue
+        size="lg"
         label="Live now"
         value={String(live.length)}
         note={live.length === 0 ? 'Nothing in play' : plural(live.length, 'event')}
         valueClassName={live.length > 0 ? 'text-accent' : undefined}
       />
-      <Stat
+      <LabeledValue
+        size="lg"
         label="Open picks"
         value={String(open.length)}
         note={open.length === 0 ? 'None placed yet' : `${formatMoney(totalStaked(open))} at risk`}
         valueClassName={open.length > 0 ? 'text-pb-brand' : undefined}
       />
-    </StatGroup>
+    </LabeledValueRow>
   )
 }

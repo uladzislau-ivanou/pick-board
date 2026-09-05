@@ -25,6 +25,12 @@ export interface LedgerView {
   totalRows: number
 }
 
+const forTab = (tab: PickTab, inPeriod: Pick[], pending: Pick[], settled: Pick[]) => {
+  if (tab === 'pending') return pending
+  if (tab === 'settled') return settled
+  return inPeriod
+}
+
 export const applyPickQuery = (
   picks: readonly Pick[],
   query: PickQuery,
@@ -35,14 +41,13 @@ export const applyPickQuery = (
   const pending = inPeriod.filter(isPending)
   const settled = inPeriod.filter(isResolved)
 
-  const tab = query.tab ?? (pending.length > 0 ? 'pending' : 'settled')
-  const sorted = (tab === 'pending' ? pending : settled)
+  const sorted = forTab(query.tab, inPeriod, pending, settled)
     .filter((pick) => query.dayFilter === null || startOfDay(pick.placedAt) === query.dayFilter)
     .filter((pick) => query.market === 'all' || pick.market === query.market)
     .sort(SORTS[query.sort])
 
   return {
-    tab,
+    tab: query.tab,
     pendingCount: pending.length,
     settledCount: settled.length,
     rows: sorted.slice(0, query.visibleRows),

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { createId } from './create-id'
+import { createId } from './id'
 
 describe('createId', () => {
   it('keeps the prefix so ids are readable in devtools', () => {
