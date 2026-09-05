@@ -45,12 +45,6 @@ export const EventsPage = () => {
       <PageHeader
         kicker={`Live board · ${plural(events.length, 'event')} · next ${plural(dayCount, 'day')}`}
         title="Events"
-        aside={
-          <p className="max-w-[340px] text-[13px]/[1.5] text-ink/60">
-            Single-leg picks only. Tap any price to set a stake — the payout is computed as stake ×
-            decimal odds.
-          </p>
-        }
       />
       <EventBoard
         events={events}
