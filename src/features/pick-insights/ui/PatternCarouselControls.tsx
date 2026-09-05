@@ -16,7 +16,7 @@ export const PatternCarouselControls = ({
   index: number
   onChange: (index: number) => void
 }) => (
-  <div className="flex shrink-0 items-center gap-2">
+  <div className="flex shrink-0 items-center gap-2 max-sm:w-full">
     <span className="mr-1 text-[10px] whitespace-nowrap text-ink/65">
       Pattern {index + 1} / {insights.length}
     </span>
@@ -39,21 +39,23 @@ export const PatternCarouselControls = ({
         </button>
       ))}
     </div>
-    <button
-      type="button"
-      aria-label="Previous pattern"
-      onClick={() => onChange(index - 1)}
-      className={ARROW}
-    >
-      <ChevronLeft size={15} />
-    </button>
-    <button
-      type="button"
-      aria-label="Next pattern"
-      onClick={() => onChange(index + 1)}
-      className={ARROW}
-    >
-      <ChevronRight size={15} />
-    </button>
+    <div className="flex items-center gap-2 max-sm:ml-auto">
+      <button
+        type="button"
+        aria-label="Previous pattern"
+        onClick={() => onChange(index - 1)}
+        className={ARROW}
+      >
+        <ChevronLeft size={15} />
+      </button>
+      <button
+        type="button"
+        aria-label="Next pattern"
+        onClick={() => onChange(index + 1)}
+        className={ARROW}
+      >
+        <ChevronRight size={15} />
+      </button>
+    </div>
   </div>
 )

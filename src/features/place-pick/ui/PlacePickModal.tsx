@@ -72,9 +72,9 @@ export const PlacePickModal = ({
           <p className="text-[10px] font-semibold tracking-[.14em] text-pb-brand uppercase">
             Place pick
           </p>
-          <h3 id={TITLE_ID} className="text-[20px]">
+          <h2 id={TITLE_ID} className="text-[20px]">
             {draft.selection}
-          </h3>
+          </h2>
           <p className="text-[12.5px] text-ink/70">
             {draft.market} · {draft.event}
           </p>

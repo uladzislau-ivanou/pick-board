@@ -21,7 +21,7 @@ export const SportChip = ({
     selected={selected}
     onClick={onClick}
     aria-label={`${label}, ${plural(count, 'event')}`}
-    className="min-h-8.5 py-1.5"
+    className="min-h-8.5 w-full justify-center py-1.5"
   >
     {sport ? <SportIcon sport={sport} size={15} className="shrink-0 opacity-80" /> : null}
     {label}

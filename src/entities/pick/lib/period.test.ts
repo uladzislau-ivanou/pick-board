@@ -58,6 +58,10 @@ describe('isInPeriod', () => {
     expect(isInPeriod(placedDaysAgo(7), range)).toBe(false)
   })
 
+  it('excludes a pick placed after the window ends', () => {
+    expect(isInPeriod(placedDaysAgo(-1), range)).toBe(false)
+  })
+
   it('compares whole days, not exact times', () => {
     const lateOnTheFirstDay = { ...placedDaysAgo(6), placedAt: TODAY - 6 * DAY + 23 * 3600_000 }
     expect(isInPeriod(lateOnTheFirstDay, range)).toBe(true)

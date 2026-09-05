@@ -93,7 +93,7 @@ describe('getPickInsights market rules', () => {
     ]
 
     expect(kickers(picks)).toContain('Cold market')
-    expect(kickers(picks)).not.toContain('Weakest market')
+    expect(kickers(picks)).not.toContain('Worst market')
   })
 
   it('reports a weak market that is not on a losing run', () => {
@@ -107,9 +107,7 @@ describe('getPickInsights market rules', () => {
       pick('Won', { daysAgo: 7 }),
     ]
 
-    const weakest = getPickInsights(picks, NOW).find(
-      (insight) => insight.kicker === 'Weakest market',
-    )
+    const weakest = getPickInsights(picks, NOW).find((insight) => insight.kicker === 'Worst market')
     expect(weakest).toMatchObject({ tone: 'bad', scope: 'Spread' })
   })
 
@@ -123,9 +121,9 @@ describe('getPickInsights market rules', () => {
     ]
 
     const strongest = getPickInsights(picks, NOW).find(
-      (insight) => insight.kicker === 'Strongest market',
+      (insight) => insight.kicker === 'Best market',
     )
-    expect(strongest?.detail).toContain('against 0% across everything else')
+    expect(strongest?.detail).toContain('against 0% in other markets')
   })
 })
 

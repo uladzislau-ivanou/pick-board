@@ -25,6 +25,13 @@ const pick = (status: PickStatus, { daysAgo = 0, stake = 10, odds = 2 } = {}): P
 const week = periodRange('7d', [], NOW)
 
 describe('dailyBuckets', () => {
+  it('ignores picks placed outside the window on either side', () => {
+    const buckets = dailyBuckets([pick('Won', { daysAgo: 7 }), pick('Won', { daysAgo: -1 })], week)
+
+    expect(buckets).toHaveLength(7)
+    expect(buckets.every((bucket) => bucket.staked === 0)).toBe(true)
+  })
+
   it('returns one bucket per day in the range, oldest first', () => {
     const buckets = dailyBuckets([], week)
 

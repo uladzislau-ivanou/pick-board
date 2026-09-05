@@ -22,11 +22,11 @@ export const EvidenceStrip = ({
   if (results.length === 0) return null
 
   return (
-    <div className="flex shrink-0 items-center gap-2">
+    <div className="flex shrink-0 items-center gap-2 max-sm:basis-full">
       <span className="sr-only">
         Last {results.length} {insight.scope ?? 'resolved'}
       </span>
-      <ul className="flex gap-1">
+      <ul className="flex min-w-29 justify-end gap-1 max-sm:min-w-0 max-sm:justify-start">
         {results.map((pick) => (
           <li
             key={pick.id}

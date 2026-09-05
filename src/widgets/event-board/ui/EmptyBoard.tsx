@@ -11,11 +11,11 @@ export const EmptyBoard = ({
 }) => (
   <div className="mt-6.5 border-t-2 border-divider pt-10 pb-11">
     <div className="max-w-[440px]">
-      <h4 className="text-[20px]">
+      <h2 className="text-[20px]">
         {sport === 'all'
           ? 'No events scheduled.'
           : `No ${SPORT_LABELS[sport].toLowerCase()} events scheduled.`}
-      </h4>
+      </h2>
       <p className="mt-2 text-[13.5px]/[1.5] text-ink/70">
         Nothing in the next seven days for this filter. Clear it to see the whole board.
       </p>

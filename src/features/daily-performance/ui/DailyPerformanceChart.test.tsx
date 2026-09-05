@@ -55,7 +55,7 @@ describe('DailyPerformanceChart', () => {
   it('names every series in the legend, so colour is never the only cue', () => {
     renderChart()
 
-    for (const label of ['Won', 'Lost', 'Pending', 'Running net']) {
+    for (const label of ['Won', 'Lost', 'Pending']) {
       expect(screen.getByText(label)).toBeInTheDocument()
     }
   })

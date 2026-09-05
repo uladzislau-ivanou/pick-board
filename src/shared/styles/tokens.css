@@ -62,6 +62,10 @@
   }
 }
 
+:root {
+  color-scheme: light;
+}
+
 @theme inline {
   --color-ground: var(--color-bg);
   --color-ink: var(--color-text);

@@ -39,8 +39,6 @@ export const dailyBuckets = (picks: readonly Pick[], range: PeriodRange): DayBuc
 
   for (const pick of picks) {
     const day = startOfDay(pick.placedAt)
-    if (day < range.startDay || day > range.endDay) continue
-
     const existing = byDay.get(day)
     if (existing) existing.push(pick)
     else byDay.set(day, [pick])

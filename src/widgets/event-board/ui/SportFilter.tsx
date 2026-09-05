@@ -17,10 +17,11 @@ export const SportFilter = ({
   const present = SPORTS.filter((sport) => counts.has(sport))
 
   return (
-    <div className="flex flex-wrap items-center gap-2 p-3.5">
-      <span className="mr-1 text-[10px] font-semibold tracking-[.14em] text-ink/65 uppercase">
-        Sport
-      </span>
+    <div
+      role="group"
+      aria-label="Filter by sport"
+      className="grid grid-cols-2 gap-2 p-3.5 sm:grid-cols-3 lg:grid-cols-6"
+    >
       <SportChip
         label="All"
         count={events.length}
